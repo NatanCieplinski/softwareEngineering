@@ -6,7 +6,7 @@ Questa è la repo dove verranno condivisi i file per l'esame di ingegneria del s
 
 
 
-##Log delle ore
+## Log delle ore
 
 Sfortunatamente jira **non** permette di avere il log delle ore nel modo particolare in cui lo vuole il professore. Useremo quindi google sheets. Potete trovare il file condiviso dove inserire le voste ore [qui](https://docs.google.com/spreadsheets/d/183YvPzPetmid3XWlw7EhFdVu0HH5rhnr0SEOuA21d0A/edit?usp=sharing)
 
