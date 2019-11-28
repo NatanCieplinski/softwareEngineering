@@ -85,9 +85,7 @@ La prenotazione va confermata seguendo le istruzioni contenute nell'e-mail che A
 
 Una volta confermata la prenotazione, per poter accedere alla postazione l'utente deve mostrare ai bibliotecari in servizio al banco il codice contenuto nell'e-mail ricevuta da AFFLUENCES. 
 
-#### ![Schermata 2019-11-27 alle 10.52.04](/Users/patrizia/Desktop/Schermata 2019-11-27 alle 10.52.04.png)
-
-![Schermata 2019-11-27 alle 10.52.12](/Users/patrizia/Desktop/Schermata 2019-11-27 alle 10.52.12.png)
+<img src="/Users/patrizia/softwareEngineering/.Stato dell'arte.assets/IMG_7019-4959551.PNG" alt="IMG_7019" style="zoom:33%;" /><img src="/Users/patrizia/softwareEngineering/.Stato dell'arte.assets/IMG_7035.PNG" alt="IMG_7035" style="zoom:33%;" /><img src="/Users/patrizia/softwareEngineering/.Stato dell'arte.assets/IMG_7024.PNG" alt="IMG_7024" style="zoom:33%;" />
 
 Momentaneamente la sperimentazione è ancora in atto per rimanere aggiornati con la biblioteca ecco il [Link](https://biblioteche.unicatt.it/milano-la-biblioteca-succede-in-biblioteca?page=1) .
 
@@ -109,6 +107,4 @@ Termini e Condizioni Standard per l'acquisto dei biglietti via internet del **Th
 6.  Gli acquisti via internet potranno essere effettuati fino a 30 minuti prima dell'inizio dello spettacolo.  
 7.  Questo servizio può essere attivato solo dal titolare della carta di credito. 
 8. Se prenotate e poi pensate di non usare una prenotazione, annullatela! Se arrivate a 3 prenotazioni non ritirate (e non annullate) il vostro account si blocca. Per sbloccarlo dovrete poi contattare il nostro supporto clienti.
-
-![Schermata 2019-11-27 alle 13.58.45](/Users/patrizia/Desktop/Schermata 2019-11-27 alle 13.58.45.png)
 
