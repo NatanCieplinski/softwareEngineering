@@ -45,3 +45,23 @@ idee per i professori:
 
 
 Assumiamo che tutti gli utilizzatori abbiano un telefono con il GPS. L'utente deve avere un codice identificativo (mail universitaria)
+
+
+
+## Incontro con il professore
+
+-  il software deve solo permettere di chiudere o aprire l'aula sul software, l'apertura fisica non è di nostro interesse
+
+-  Non permettere di prenotare i singoli posti. Complessità inutile per il vantaggio. 
+
+**Gerarchie di utenti:** 
+
+1. esclusività di alcune aule. 
+
+2. Priorità per altre aule. Parametrizzare le tempistiche entro il quale il tipo di utente deve prenotare. 
+
+Il sistema deve essere pensato anche per essere utilizzato per le lezioni a frequenza obbligatoria. 
+
+E' possibile eliminare il check in in caso di controllo dell'occupazione del posto.
+
+Cercare di ridurre al minimo l'hardware aggiuntivo da utilizzare.
