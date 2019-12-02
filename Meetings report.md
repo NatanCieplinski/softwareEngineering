@@ -215,7 +215,7 @@ Flusso di eventi:
 - Nel caso in cui l'aula risulti non più disponibile il sistema annulla le prenotazioni di tutti gli studenti che hanno prenotato per lo stesso orario e data
 - Nel caso precedente il sistema invia una notifica agli studenti che hanno acconsentito a riceverla
 
-Nome: **Aggiornamento della mappa da parte dell'amministratore**
+Nome: **Aggiunta/Aggiornamento della mappa da parte dell'amministratore**
 
 Partecipanti: Amministratori
 
@@ -223,13 +223,51 @@ Flusso di eventi:
 - L'amministratore apre il pannello di controllo
 - L'amministratore seleziona la mappa o ne aggiunge una nuova
 - L'amministratore carica un immagine della mappa
-- L'amministratore seleziona le varie aule e imposta i posti totali
+- L'amministratore clicca il pulsante salva
+- Il sistema aggiorna il database
+ 
+Nome: **Aggiunta/Aggiornamento delle aule nella mappa da parte dell'amministratore**
+
+Partecipanti: Amministratori
+
+Flusso di eventi:
+- L'amministratore apre il pannello di controllo
+- L'amministratore seleziona la mappa
+- L'amministratore crea attraverso un apposito strumento l'area dell'aula sulla mappa o seleziona un'aula
+- L'amministratore da un nome all'aula
+- L'amministratore clicca il pulsante salva
+- Il sistema aggiorna il database
+ 
+Nome: **Configurazione delle aule nella mappa da parte dell'amministratore**
+
+Partecipanti: Amministratori
+
+Flusso di eventi:
+- L'amministratore apre il pannello di controllo
+- L'amministratore seleziona la mappa
+- L'amministratore seleziona l'aula
+- L'amministratore inserisce il numero di banchi presenti per ogni tipologia (banchi da 4, da 5, etc..)
+- Il sistema crea automaticamente una mappa fittizzia dell'aula utilizzando le informazioni date dall'amministratore
+- L'amministratore clicca il pulsante salva
+- Il sistema aggiorna il database
+- 
+Nome: **Aggiunta/Aggiornamento delle tipologie di banchi da parte dell'amministratore**
+
+Partecipanti: Amministratori
+
+Flusso di eventi:
+- L'amministratore apre il pannello di controllo
+- L'amministratore seleziona tipologia dei banchi
+- L'amministratore configura le varie tipologie di banchi con il numero di posti per ogni tipo
 - L'amministratore clicca il pulsante salva
 - Il sistema aggiorna il database
 
 ### Identificazione dei servizi
 - Il sistema permette di effettuare il login con le credenziali della propria università
 - Il sistema comunica con i sistemi già esistenti dell'università per ottenere i dati di identificazione dell'utente
+- Il sistema permette di aggiungere una mappa dell'unviersità
+- Il sistema permette di configurare la distribuzione dei posti all'interno di un'aula. La configurazione viene fatta specificando se i posti sono divisi in file o banchi, specificando il numero di file / banchi e specificando il numero di posti per file / banchi
+- Il sistema permette di configurare le tipologie di banchi
 - Il sistema effettua periodicamente un aggiornamento sullo stato delle aule disponibile in base al database delle lezioni dell'università
 - Il sistema permette di aprire le aule
 - Il sistema permette di chiudere le aule
@@ -245,5 +283,34 @@ Flusso di eventi:
 - Il sistema permette di effettuare il check-out di un posto prenotato
 - Il sistema permette di effettuare il check-out di un aula prenotata
 
+## Lunedi 2 Dicembre 2019
+### Excluded Requirements:
+- Utilizzo del RFID per il check-in: il servizio avrebbe richiesto l'utilizzo di hardware apposito i cui vantaggi non avrebbero coperto  i costi
+- Creazione di gruppi di studio: il servizio è risultato troppo macchinoso per l'utente finale e quindi non offre vantaggi
+- Utilizzo del Wifi universitario per il check-in: il servizio avrebbe negato l'utilizzo del sistema agli utenti in diversi casi quindi è stato escluso 
+- Visualizzazione dei posti disponibili in università come lista di aule: nel sondaggio condiviso con gli stakeholder, gli utente hanno indicato di non preferire questa opzione
+- Controllo di un posto occupato a vuoto: il servizio avrebbe aumentato di troppo la complessità del sistema rispetto ai vantaggi che avrebbe offerto
+- Segnalazione da parte di uno studente a una postazione occupata a vuoto: il servizio avrebbe potuto generare troppe segnalazioni delle quali non si poteva verificare l'autenticità. Avrebbe richiesto inoltre l'impego di troppo personale di controllo
+- Utilizzo della posizione per il check in: il servizio poteva non essere sufficientemente preciso
+- Utilizzo del bluetooth: il servizio sarebbe non potuto essere utilizzato da studenti che non avevano il bluetooth
+- Caricamento di una mappa che rappresenti in modo realistico i posti dentro un'aula: la funzionalità avrebbe richiesto maggiore lavoro in fase di configurazione rispetto ad una mappa dei posti generata
 
+### Requisiti non funzionali:
+#### Usability
+- **User error protection**: il sistema utilizza sistemi informatici  esterni per fornire dati sugli utenti, pertanto non è possibile avere dei dati errati nel sistema.
+- **Learnability**: il sistema per gli utenti è utilizzabile tramite un sistema di "mappe". E' pertanto molto intuitivo da utilizzare. 
+#### Security
+- **Confidentiality**: Il sistema garantisce l'accesso alla visualizzazione delle prenotazioni solo al personale autorizzato
+- **Accountability**: Il sistema prende i dati dal sistema informatico dell'università, la quale verifica le identità digitali utilizzando un documento di riconoscimento. L'identità si può quindi considerare univoca per ogni entità.
+#### Maintainability
+- **Reusability**: il sistema puù essere utilizzato come base per un sistema di registrazione delle presenze nelle lezioni a frequenza obbligatorie.
+#### Portability
+- **Adaptability**: Il sistema è pensato per essere utilizzato da più università tramite delle API. 
 
+### Assunzioni:
+- Assumiamo che lo studente/professore/sorvegliante abbia un telefono
+- Assumiamo che lo studente sia iscritto all'università
+- Assumiamo che il professore lavori nell'università
+- Assumiamo che lo studente/professore/sorvegliante abbia internet o possa collegarsi al wi-fi dell'università
+- Assumiamo che il sorvegliante sia reperibile durante le segnalazioni
+- Assumiamo che ci sia una persona addetta alla costruzione delle mappe e che le costruisca correttamente
