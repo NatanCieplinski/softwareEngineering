@@ -186,6 +186,7 @@ Flusso di eventi:
 - Il server dell'università comunica attraverso JSON se il login è andato a buon fine e i dati relativi all'utente, nonchè la tipologia di utenza (studente, professore, sorvegliante, amministratore)
 - Il sistema logga l'utente in base alla sua tipologia
   
+
 Nome: **Logout aula da parte di uno studente**
 
 Partecipanti: Studenti
@@ -214,14 +215,6 @@ Flusso di eventi:
 - Nel caso in cui l'aula risulti non più disponibile il sistema annulla le prenotazioni di tutti gli studenti che hanno prenotato per lo stesso orario e data
 - Nel caso precedente il sistema invia una notifica agli studenti che hanno acconsentito a riceverla
 
-Nome: **Chiusura di un aula**
-
-Partecipanti: Sorvegliante, Studenti
-
-Flusso di eventi:
-- Il sorvegliante chiude le aule studio
-- Il sorvegliante entra nell'applicazione, seleziona l'aula che ha chiuso e la imposta come chiusa
-
 Nome: **Aggiornamento della mappa da parte dell'amministratore**
 
 Partecipanti: Amministratori
@@ -249,6 +242,8 @@ Flusso di eventi:
 - Il sistema permette di effettuare il check-in di un posto prenotato
 - Il sistema permette di effettuare il check-in di un aula prenotata
 - Il sistema permette di visualizzare le aule e i posti disponibili
+- Il sistema permette di effettuare il check-out di un posto prenotato
+- Il sistema permette di effettuare il check-out di un aula prenotata
 
 
 
