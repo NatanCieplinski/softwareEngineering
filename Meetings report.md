@@ -80,7 +80,9 @@ Partecipanti: Studenti
 Flusso di eventi:
 - Lo studente apre l'app
 - Lo studente vede quali aule hanno posti disponibili
-- Lo studente decide il posto e lo prenota
+- Lo studente seleziona l'aula disponibile e visualizza la mappa dei posti
+- Lo studente seleziona l'orario di partenza della sua prenotazione e la durata della sua prenotazione
+- Lo studente visualizza quali posti sono disponibili, decide il posto e lo prenota
 
 
 Nome: **Check-in del aula da parte di uno studente**
@@ -122,7 +124,7 @@ Partecipanti: Professori, Studenti
 
 Flusso di eventi:
 - Il professore apre l'app
-- Decide l'aula sulla mappa e la prenota
+- Decide l'aula sulla mappa e se disponibile la prenota
 - Il sistema annulla le prenotazioni di tutti gli studenti che hanno prenotato per lo stesso orario e data
 - Il sistema invia una notifica di annullamento delle prenotazioni a tutti gli studenti interessati
 
@@ -264,24 +266,73 @@ Flusso di eventi:
 
 ### Identificazione dei servizi
 - Il sistema permette di effettuare il login con le credenziali della propria università
+    - ID: 1
+    - Importanza: Alta
+    - Complessità: Alta
 - Il sistema comunica con i sistemi già esistenti dell'università per ottenere i dati di identificazione dell'utente
+    - ID: 2
+    - Importanza: Alta
+    - Complessità: Alta
 - Il sistema permette di aggiungere una mappa dell'unviersità
+    - ID: 3
+    - Importanza: Media
+    - Complessità: Bassa
 - Il sistema permette di configurare la distribuzione dei posti all'interno di un'aula. La configurazione viene fatta specificando se i posti sono divisi in file o banchi, specificando il numero di file / banchi e specificando il numero di posti per file / banchi
+    - ID: 4
+    - Importanza: Bassa
+    - Complessità: Media
 - Il sistema permette di configurare le tipologie di banchi
+    - ID: 5
+    - Importanza: Bassa
+    - Complessità: Bassa
 - Il sistema effettua periodicamente un aggiornamento sullo stato delle aule disponibile in base al database delle lezioni dell'università
-- Il sistema permette di aprire le aule
-- Il sistema permette di chiudere le aule
+    - ID: 6
+    - Importanza: Media
+    - Complessità: Media
+- Il sistema permette di aprire e chiudere le aule
+    - ID: 7
+    - Importanza: Alta
+    - Complessità: Bassa
 - Il sistema permette di inviare segnalazioni al sorvegliante
+    - ID: 8
+    - Importanza: Bassa
+    - Complessità: Media
 - Il sistema permette al sorvegliante di segnalare gli utenti
+    - ID: 9
+    - Importanza: Bassa
+    - Complessità: Media
 - Il sistema permette di prenotare un posto in un aula
+    - ID: 10
+    - Importanza: Alta
+    - Complessità: Media
 - Il sistema permette di prenotare un intera aula
+    - ID: 11
+    - Importanza: Alta
+    - Complessità: Media
 - Il sistema permette di annullare la prenotazione di un posto
+    - ID: 12
+    - Importanza: Media
+    - Complessità: Bassa
 - Il sistema permette di annullare la prenotazione di un aula
+    - ID: 13
+    - Importanza: Alta
+    - Complessità: Bassa
 - Il sistema permette di effettuare il check-in di un posto prenotato
+    - ID: 14
+    - Importanza: Alta
+    - Complessità: Alta
 - Il sistema permette di effettuare il check-in di un aula prenotata
+    - ID: 15
+    - Importanza: Alta
+    - Complessità: Bassa
 - Il sistema permette di visualizzare le aule e i posti disponibili
+    - ID: 16
+    - Importanza: Alta
+    - Complessità: Alta
 - Il sistema permette di effettuare il check-out di un posto prenotato
-- Il sistema permette di effettuare il check-out di un aula prenotata
+    - ID: 17
+    - Importanza: Media
+    - Complessità: Bassa
 
 ## Lunedi 2 Dicembre 2019
 ### Excluded Requirements:
@@ -297,7 +348,7 @@ Flusso di eventi:
 
 ### Requisiti non funzionali:
 #### Usability
-- **User error protection**: il sistema utilizza sistemi informatici  esterni per fornire dati sugli utenti, pertanto non è possibile avere dei dati errati nel sistema.
+- **User error protection**: il sistema utilizza sistemi informatici esterni per fornire dati sugli utenti, pertanto non è possibile avere dei dati errati nel sistema.
 - **Learnability**: il sistema per gli utenti è utilizzabile tramite un sistema di "mappe". E' pertanto molto intuitivo da utilizzare. 
 #### Security
 - **Confidentiality**: Il sistema garantisce l'accesso alla visualizzazione delle prenotazioni solo al personale autorizzato
