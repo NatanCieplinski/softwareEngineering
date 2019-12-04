@@ -227,7 +227,7 @@ Flusso di eventi:
 - L'amministratore carica un immagine della mappa
 - L'amministratore clicca il pulsante salva
 - Il sistema aggiorna il database
- 
+
 Nome: **Aggiunta/Aggiornamento delle aule nella mappa da parte dell'amministratore**
 
 Partecipanti: Amministratori
@@ -235,11 +235,11 @@ Partecipanti: Amministratori
 Flusso di eventi:
 - L'amministratore apre il pannello di controllo
 - L'amministratore seleziona la mappa
-- L'amministratore crea attraverso un apposito strumento l'area dell'aula sulla mappa o seleziona un'aula
+- L'amministratore crea attraverso un apposito strumento l'area corrispondente all'aula selezionando i vertici sulla mappa o seleziona un'aula
 - L'amministratore da un nome all'aula
 - L'amministratore clicca il pulsante salva
 - Il sistema aggiorna il database
- 
+
 Nome: **Configurazione delle aule nella mappa da parte dell'amministratore**
 
 Partecipanti: Amministratori
@@ -249,6 +249,7 @@ Flusso di eventi:
 - L'amministratore seleziona la mappa
 - L'amministratore seleziona l'aula
 - L'amministratore inserisce il numero di banchi presenti per ogni tipologia (banchi da 4, da 5, etc..)
+- Specifica se l'aula di default è aperta o chiusa
 - Il sistema crea automaticamente una mappa fittizzia dell'aula utilizzando le informazioni date dall'amministratore
 - L'amministratore clicca il pulsante salva
 - Il sistema aggiorna il database
@@ -365,3 +366,13 @@ Flusso di eventi:
 - Assumiamo che lo studente/professore/sorvegliante abbia internet o possa collegarsi al wi-fi dell'università
 - Assumiamo che il sorvegliante sia reperibile durante le segnalazioni
 - Assumiamo che ci sia una persona addetta alla costruzione delle mappe e che le costruisca correttamente
+
+## Mercoledì 4 Dicembre 2019
+
+### Shema ER:
+
+-  Le tabelle di prenotazione tra aula e posti sono separate per migliorare le performance quando si necessità l'accesso alle prenotazioni delle sole aule
+-  Le aule hanno uno stato di default. Alcune aperte e altre chiuse, i custodi poi giorno per giorno possono modificare lo stato. Inoltre ogni aula ha un orario di default di apertura e uno di chiusura
+-  Il DB non mantiene tutte le informazioni degli utenti per evitare ridondanza rispetto al DB dell'università. Tuttavia vengono memorizzati gli ID degli utenti per permettere agli amministratori di bannare utenti che abbiano comportamenti non consoni. 
+-  L'entità utente non dispone di un flag tipo poichè 
+
