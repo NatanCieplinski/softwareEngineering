@@ -370,4 +370,4 @@ Flusso di eventi:
 -  Le aule hanno uno stato di default. Alcune aperte e altre chiuse, i custodi poi giorno per giorno possono modificare lo stato. Inoltre ogni aula ha un orario di default di apertura e uno di chiusura
 -  Il DB non mantiene tutte le informazioni degli utenti per evitare ridondanza rispetto al DB dell'università. Tuttavia vengono memorizzati gli ID degli utenti per permettere agli amministratori di bannare utenti che abbiano comportamenti non consoni. 
 -  L'entità utente non dispone di un flag "tipo" poichè l'identity manager salva temporaneamente le sue informazioni al momento del login e le associa ad un token che l'utente utilizzerà per effettuare operazioni privilegiate. 
--  I dati presi dall'API per le lezioni, vengono inseriti nella tabella Lezione
+-  I dati presi dall'API per le lezioni, vengono inseriti nella tabella schedule
