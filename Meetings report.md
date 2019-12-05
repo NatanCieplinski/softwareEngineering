@@ -73,7 +73,7 @@ Cercare di ridurre al minimo l'hardware aggiuntivo da utilizzare.
 - Sistemi informatici universitari
   
 ### Scenari d'uso:
-Nome: **Prenotazione aula da parte di uno studente**
+[]Nome: **Prenotazione aula da parte di uno studente**
 
 Partecipanti: Studenti
 
@@ -84,8 +84,7 @@ Flusso di eventi:
 - Lo studente seleziona l'orario di partenza della sua prenotazione e la durata della sua prenotazione
 - Lo studente visualizza quali posti sono disponibili, decide il posto e lo prenota
 
-
-Nome: **Check-in del aula da parte di uno studente**
+[]Nome: **Check-in del aula da parte di uno studente**
 
 Partecipanti: Studenti
 
@@ -95,8 +94,8 @@ Flusso di eventi:
 - L'app genere un codice QR da far scansionare al dipositivo per il check in
 - Il dispositivo scansiona il codice QR e invia i dati sullo studente al sistema
 - Lo studente viene registrato come presente in aula
-- 
-Nome: **Annullamento di una prenotazione da parte di un professore**
+
+[]Nome: **Annullamento di una prenotazione da parte di un professore**
 
 Partecipanti: Professore
 
@@ -106,8 +105,7 @@ Flusso di eventi:
 - Lo professore decide la prenotazione da eliminare e la elimina
 - Il sistema rende l'aula prenotata disponibile
 
-
-Nome: **Annullamento di una prenotazione da parte di uno studente**
+[]Nome: **Annullamento di una prenotazione da parte di uno studente**
 
 Partecipanti: Studenti
 
@@ -117,8 +115,7 @@ Flusso di eventi:
 - Lo studente decide la prenotazione da eliminare e la elimina
 - Il sistema rende il posto prenotato disponibile
 
-
-Nome: **Prenotazione aula da parte di un professore**
+[]Nome: **Prenotazione aula da parte di un professore**
 
 Partecipanti: Professori, Studenti
 
@@ -128,8 +125,7 @@ Flusso di eventi:
 - Il sistema annulla le prenotazioni di tutti gli studenti che hanno prenotato per lo stesso orario e data
 - Il sistema invia una notifica di annullamento delle prenotazioni a tutti gli studenti interessati
 
-
-Nome: **Check-in aula da parte di un professore**
+[]Nome: **Check-in aula da parte di un professore**
 
 Partecipanti: Professori
 
@@ -137,8 +133,7 @@ Flusso di eventi:
 - Il professore apre l'app
 - Il professore conferma sull'app l'inizio della lezione 
 
-
-Nome: **Segnalazione di "prenotazione falsa" da parte di un sorvegliante**
+[]Nome: **Segnalazione di "prenotazione falsa" da parte di un sorvegliante**
 
 Partecipanti: Sorveglianti, Studenti
 
@@ -149,7 +144,7 @@ Flusso di eventi:
 - Il sistema invia una notifica di segnalazione allo studente che aveva prenotato
 - Il sistema blocca l'utente dalle future prenotazioni se ha ricevuto 3 segnalazioni
 
-Nome: **Segnalazione di "posto occupato" da parte di uno studente**
+[]Nome: **Segnalazione di "posto occupato" da parte di uno studente**
 
 Partecipanti: Sorveglianti, Studenti
 
@@ -159,7 +154,7 @@ Flusso di eventi:
 - Il sorvegliante riceve una notifica con la segnalazione
 - Il sorvegliante va in aula e caccia lo studente
 
-Nome: **Apertura di un aula**
+[]Nome: **Apertura di un aula**
 
 Partecipanti: Sorvegliante, Studenti
 
@@ -168,7 +163,7 @@ Flusso di eventi:
 - Il sorvegliante entra nell'applicazione, seleziona l'aula che ha aperto e la imposta come aperta
 - Il sistema invia una notifica agli studenti che hanno acconsentito a riceverla
 
-Nome: **Chiusura di un aula**
+[]Nome: **Chiusura di un aula**
 
 Partecipanti: Sorvegliante, Studenti
 
@@ -176,7 +171,7 @@ Flusso di eventi:
 - Il sorvegliante chiude le aule studio
 - Il sorvegliante entra nell'applicazione, seleziona l'aula che ha chiuso e la imposta come chiusa
 
-Nome: **Accesso da parte di un utente**
+[]Nome: **Accesso da parte di un utente**
 
 Partecipanti: Studenti, Professori, Sorveglianti, Amministratori, Sistemi informatici universitari
 
@@ -206,7 +201,7 @@ Flusso di eventi:
 - Il professore esegue il logout
   
 
-Nome: **Controllo della disponibilità dell'aula**
+[]Nome: **Controllo della disponibilità dell'aula**
 
 Partecipanti: Sistemi informatici universitari, Studenti
 
@@ -217,7 +212,7 @@ Flusso di eventi:
 - Nel caso in cui l'aula risulti non più disponibile il sistema annulla le prenotazioni di tutti gli studenti che hanno prenotato per lo stesso orario e data
 - Nel caso precedente il sistema invia una notifica agli studenti che hanno acconsentito a riceverla
 
-Nome: **Aggiunta/Aggiornamento della mappa da parte dell'amministratore**
+[]Nome: **Aggiunta/Aggiornamento della mappa da parte dell'amministratore**
 
 Partecipanti: Amministratori
 
@@ -228,7 +223,7 @@ Flusso di eventi:
 - L'amministratore clicca il pulsante salva
 - Il sistema aggiorna il database
 
-Nome: **Aggiunta/Aggiornamento delle aule nella mappa da parte dell'amministratore**
+[]Nome: **Aggiunta/Aggiornamento delle aule nella mappa da parte dell'amministratore**
 
 Partecipanti: Amministratori
 
@@ -240,7 +235,7 @@ Flusso di eventi:
 - L'amministratore clicca il pulsante salva
 - Il sistema aggiorna il database
 
-Nome: **Configurazione delle aule nella mappa da parte dell'amministratore**
+[]Nome: **Configurazione delle aule nella mappa da parte dell'amministratore**
 
 Partecipanti: Amministratori
 
@@ -253,8 +248,8 @@ Flusso di eventi:
 - Il sistema crea automaticamente una mappa fittizzia dell'aula utilizzando le informazioni date dall'amministratore
 - L'amministratore clicca il pulsante salva
 - Il sistema aggiorna il database
-- 
-Nome: **Aggiunta/Aggiornamento delle tipologie di banchi da parte dell'amministratore**
+
+[]Nome: **Aggiunta/Aggiornamento delle tipologie di banchi da parte dell'amministratore**
 
 Partecipanti: Amministratori
 
@@ -369,10 +364,10 @@ Flusso di eventi:
 
 ## Mercoledì 4 Dicembre 2019
 
-### Shema ER:
+### Schema ER:
 
 -  Le tabelle di prenotazione tra aula e posti sono separate per migliorare le performance quando si necessità l'accesso alle prenotazioni delle sole aule
 -  Le aule hanno uno stato di default. Alcune aperte e altre chiuse, i custodi poi giorno per giorno possono modificare lo stato. Inoltre ogni aula ha un orario di default di apertura e uno di chiusura
 -  Il DB non mantiene tutte le informazioni degli utenti per evitare ridondanza rispetto al DB dell'università. Tuttavia vengono memorizzati gli ID degli utenti per permettere agli amministratori di bannare utenti che abbiano comportamenti non consoni. 
--  L'entità utente non dispone di un flag tipo poichè 
-
+-  L'entità utente non dispone di un flag "tipo" poichè l'identity manager salva temporaneamente le sue informazioni al momento del login e le associa ad un token che l'utente utilizzerà per effettuare operazioni privilegiate. 
+-  I dati presi dall'API per le lezioni, vengono inseriti nella tabella Lezione
