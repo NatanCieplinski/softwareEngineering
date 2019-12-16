@@ -371,3 +371,9 @@ Flusso di eventi:
 -  Il DB non mantiene tutte le informazioni degli utenti per evitare ridondanza rispetto al DB dell'università. Tuttavia vengono memorizzati gli ID degli utenti per permettere agli amministratori di bannare utenti che abbiano comportamenti non consoni. 
 -  L'entità utente non dispone di un flag "tipo" poichè l'identity manager salva temporaneamente le sue informazioni al momento del login e le associa ad un token che l'utente utilizzerà per effettuare operazioni privilegiate. 
 -  I dati presi dall'API per le lezioni, vengono inseriti nella tabella schedule
+
+## Lunedi 16 Dicembre 2019
+
+-  Passaggio da QR code a wifi
+
+-  annullamento automatico se non viene eseguito il checkin con notifica e segnalazione
