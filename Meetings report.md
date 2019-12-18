@@ -374,6 +374,22 @@ Flusso di eventi:
 
 ## Lunedi 16 Dicembre 2019
 
--  Passaggio da QR code a wifi
-
+-  Passaggio da QR code a bluetooth
 -  annullamento automatico se non viene eseguito il checkin con notifica e segnalazione
+
+## Incontro con Muccini (18-12-2019)
+
+-  Come possono non assumere che l'università non abbia un sistema di registrazione degli utenti? Esiste qualche università che lavora ancora su carta?
+   -  E' sempre meglio tenere un database ridondante. Così astraggo anche dalle implementazioni dei DB delle singole università.
+-  Tra il wifi e il bluetooth lei quale ritiene sia la soluzione migliore?
+   -  I beacon bluetooth possono dare problemi di posizionamento, ma sono una soluzione migliore rispetto al wifi
+-  Ci è richiesto di fornire un backend per le lezioni, ma la specifica non lo richiede. Inoltre nelle design decision abbiamo scritto che ogni università può avere i propri protocolli per le prenotazioni delle aule, e per rendere il sistema indipendente non forniamo noi il servizio di prenotazione per le lezioni
+   -  Controllate università di diversa grandezza se hanno un calendario delle lezioni online. Se non ce l'hanno, potete ignorare la cosa delle lezioni. Non preoccupatevi voi di implementare 
+-  Ci dice che lasciare libertà ai professori può generare troppe cancellazioni ma in aula mi ha detto che la mia richiesta per un professore di prenotare l'aula 2 giorni prima è più restrittiva per i docenti che per gli studenti
+   -  Lasciare in fase di configurazione la possibilità di stabilire la priorità tra gli utenti, stabilire il tempo massimo entro il quale possono prenotare o stabilire che non c'è alcun processo
+-  Il fatto che una persona abbia richiesto la gestione dei gruppi non implica che tutti gli utenti la vogliono. Non la implementiamo
+   -  Va bene, effettivamente si complica troppo il sistema
+-  Il cellulare scarico conta come una cosa della quale si deve occupare lo studente o l'università dovrebbe fornire prese?
+   -  Va messo tra le assunzioni ma è a carico dello studente
+-  Va bene mostrare la configurazione dell'aula come screenshot di uno dei sistemi analizzati nello stato dell'arte?
+   -  Va bene ma sarebbe meglio farlo capire in altro modo. La disposizione deve essere almeno matriciale
