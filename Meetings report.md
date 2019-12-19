@@ -383,6 +383,7 @@ Flusso di eventi:
    -  E' sempre meglio tenere un database ridondante. Così astraggo anche dalle implementazioni dei DB delle singole università.
 -  Tra il wifi e il bluetooth lei quale ritiene sia la soluzione migliore?
    -  I beacon bluetooth possono dare problemi di posizionamento, ma sono una soluzione migliore rispetto al wifi
+   -  implementare segnalazioni con aula piena
 -  Ci è richiesto di fornire un backend per le lezioni, ma la specifica non lo richiede. Inoltre nelle design decision abbiamo scritto che ogni università può avere i propri protocolli per le prenotazioni delle aule, e per rendere il sistema indipendente non forniamo noi il servizio di prenotazione per le lezioni
    -  Controllate università di diversa grandezza se hanno un calendario delle lezioni online. Se non ce l'hanno, potete ignorare la cosa delle lezioni. Non preoccupatevi voi di implementare 
 -  Ci dice che lasciare libertà ai professori può generare troppe cancellazioni ma in aula mi ha detto che la mia richiesta per un professore di prenotare l'aula 2 giorni prima è più restrittiva per i docenti che per gli studenti
