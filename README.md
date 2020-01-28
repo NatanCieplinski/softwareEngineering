@@ -23,7 +23,7 @@ Repository del gruppo **GitPub** per l'esame di Software Engineering 2019 - 2020
 ### Avviare il test
 1. Spostarsi nella cartella src/laradock
 2. cp env-example .env
-3. docker-compose --build up mysql nginx phpmyadmin workspace
+3. docker-compose up --build mysql nginx phpmyadmin workspace
 4. Aggiungere 127.0.0.1 softeng.test agli hosts
 5. Spostarsi nella cartella src
 6. cp .env-example .env
