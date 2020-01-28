@@ -26,7 +26,7 @@ Repository del gruppo **GitPub** per l'esame di Software Engineering 2019 - 2020
 3. docker-compose --build up mysql nginx phpmyadmin workspace
 4. Aggiungere 127.0.0.1 softeng.test agli hosts
 5. Spostarsi nella cartella src
-6. cp .env-example .env
+6. cp .env.example .env
 7. Modificare .env con:
      - DB_HOST=mysql
      - DB_DATABASE=default 
