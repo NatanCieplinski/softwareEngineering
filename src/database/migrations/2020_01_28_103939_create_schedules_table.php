@@ -18,6 +18,10 @@ class CreateSchedulesTable extends Migration
             $table->date('date');
             $table->time('from');
             $table->time('to');
+
+            $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('classroom_id')->unsigned();
+            
             $table->timestamps();
         });
     }

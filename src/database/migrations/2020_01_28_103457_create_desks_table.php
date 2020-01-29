@@ -18,6 +18,10 @@ class CreateDesksTable extends Migration
             $table->boolean('orietation');
             $table->point('x_pos');
             $table->point('y_pos');
+
+            $table->bigInteger('classroom_id')->unsigned();
+            $table->bigInteger('desktype_id')->unsigned();
+            
             $table->timestamps();
         });
     }

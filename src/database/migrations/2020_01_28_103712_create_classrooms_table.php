@@ -20,6 +20,10 @@ class CreateClassroomsTable extends Migration
             $table->integer('ble_frequence');
             $table->integer('rows');
             $table->integer('columns');
+
+            $table->geometryCollection('drawing');
+            $table->bigInteger('map_id')->unsigned();
+
             $table->timestamps();
         });
     }

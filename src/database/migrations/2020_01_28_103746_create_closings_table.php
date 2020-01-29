@@ -19,6 +19,10 @@ class CreateClosingsTable extends Migration
             $table->time('from');
             $table->time('to');
             $table->string('motivation')->default("");
+
+            $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('classroom_id')->unsigned();
+            
             $table->timestamps();
         });
     }

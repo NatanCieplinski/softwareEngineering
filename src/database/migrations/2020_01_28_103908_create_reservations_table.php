@@ -21,6 +21,10 @@ class CreateReservationsTable extends Migration
             $table->boolean('checked')->default(false);
             $table->integer('seat');
             $table->time('start_pause')->nullable();
+
+            $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('desk_id')->unsigned();
+            
             $table->timestamps();
         });
     }
