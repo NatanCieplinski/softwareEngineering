@@ -15,13 +15,13 @@ class CreateClassroomsTable extends Migration
     {
         Schema::create('classrooms', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->integer('noisiness')->nullable();
-            $table->integer('ble_frequence');
-            $table->integer('rows');
-            $table->integer('columns');
+            $table->string('nome');
+            $table->integer('rumorosita')->nullable();
+            $table->integer('frequenza_ble')->nullable();
+            $table->integer('righe');
+            $table->integer('colonne');
 
-            $table->geometryCollection('drawing');
+            $table->geometryCollection('disegno');
             $table->bigInteger('map_id')->unsigned();
 
             $table->timestamps();

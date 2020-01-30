@@ -15,7 +15,7 @@ class CreateDesksTable extends Migration
     {
         Schema::create('desks', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->boolean('orietation');
+            $table->boolean('orientamento');
             $table->point('x_pos');
             $table->point('y_pos');
 

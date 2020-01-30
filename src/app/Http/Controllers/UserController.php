@@ -34,16 +34,20 @@ class UserController extends Controller
 
     private function validation(Request $request, $req=false){
         return Validator::make($request->all(),[
-            'name' => 'string|max:255',
-            'surname' => 'string|max:255',
+            'nome' => 'string|max:255',
             'username' => 'string|max:255',
             'email' => $req ? 'required' : ''.'|string|email|max:255|unique:users',
             'password' => $req ? 'required' : ''.'|string',
         ]);
-
     }
 
     public function all(){
+        if( $this->role() != "supervisor" ||
+            $this->role() != "admin"
+        ){
+            return Response::make("", 403);
+        }
+
         return Response::json(User::paginate(), 200);
     }
 
@@ -66,10 +70,25 @@ class UserController extends Controller
     }
 
     public function show(Request $request){
-        return Response::json(User::find($request['id']), 200);
+        if( $this->role() != "supervisor" ||
+            $this->role() != "admin" ||
+            Auth::user()->id != $request['id']
+        ){
+            return Response::make("", 403);
+        }
+
+        $user = User::findOrFail($request['id']);
+        return Response::json($user, 200);
     }
 
     public function update(Request $request){
+        if( $this->role() != "supervisor" ||
+            $this->role() != "admin" ||
+            Auth::user()->id != $request['id']
+        ){
+            return Response::make("", 403);
+        }
+        
         $validator = $this->validation($request);
 
         if($validator->fails()){
@@ -80,10 +99,8 @@ class UserController extends Controller
 
         $data = $validator->valid();
 
-        if(isset($data['name']))
-            $user->name = $data['name'];
-        if(isset($data['surname']))
-            $user->surname = $data['surname'];
+        if(isset($data['nome']))
+            $user->nome = $data['nome'];
         if(isset($data['username']))
             $user->username = $data['username'];
         if(isset($data['email']))
@@ -96,15 +113,27 @@ class UserController extends Controller
     }
 
     public function destroy(Request $request){
+        if($this->role() != "admin"){
+            return Response::make("", 403);
+        }
+
         $user = User::findOrFail($request['id']);
         User::destroy($request['id']);
+
         return Response::json($user, 200);
     }
 
     public function ban(Request $request){
+        if( $this->role() != "supervisor" ||
+            $this->role() != "admin"
+        ){
+            return Response::make("", 403);
+        }
+
         $user = User::findOrFail($request['id']);
-        $user->is_banned = true;
+        $user->is_bannato = true;
         $user->save();
+
         return Response::make("", 204);
     }
 
@@ -143,7 +172,7 @@ class UserController extends Controller
             $this->incrementLoginAttempts($request);
             return Response::make("", 401);
         }
-                
+
         $access_token = Auth::user()->createToken('auth')->accessToken;
 
         return Response::json([
@@ -157,6 +186,16 @@ class UserController extends Controller
     }
 
     public function reservations(Request $request){
-        
+        if( $this->role() != "supervisor" ||
+            $this->role() != "admin" ||
+            Auth::user()->id != $request['id']
+        ){
+            return Response::make("", 403);
+        }
+
+        $user = User::findOrFail($request['id']);
+        $reservations = $user->reservations();
+
+        return Response::json($reservations, 200);
     }
 }

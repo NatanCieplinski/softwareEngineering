@@ -15,9 +15,9 @@ class CreateDesktypesTable extends Migration
     {
         Schema::create('desktypes', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->integer('seat_number');
-            $table->geometryCollection('drawing');
+            $table->string('nome');
+            $table->integer('numero_posti');
+            $table->geometryCollection('disegno');
             $table->timestamps();
         });
     }

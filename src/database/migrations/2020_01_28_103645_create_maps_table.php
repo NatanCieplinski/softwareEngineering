@@ -15,7 +15,7 @@ class CreateMapsTable extends Migration
     {
         Schema::create('maps', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->text('vectorial');
+            $table->text('vettoriale');
             $table->timestamps();
         });
     }

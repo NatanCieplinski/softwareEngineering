@@ -15,7 +15,7 @@ class CreateReportsTable extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('motivation');
+            $table->string('motivazione');
 
             $table->bigInteger('admin_id')->unsigned();
             $table->bigInteger('user_id')->unsigned();

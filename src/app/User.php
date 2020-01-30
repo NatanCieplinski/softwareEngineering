@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'surname', 'username', 'is_banned'
+        'nome', 'email', 'password', 'username', 'is_bannato'
     ];
 
     /**
@@ -37,4 +37,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Get reservations of the user
+     */
+    public function reservations()
+    {
+        return $this->hasMany('App\Reservation');
+    }
 }
