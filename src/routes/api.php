@@ -16,8 +16,8 @@ use Illuminate\Http\Request;
 /**
  * Routes /api/utenti
  */
-Route::post('/register', 'UserController@register')->name('register');
-Route::post('/login', 'UserController@login')->name('login');
+Route::post('utenti/register', 'UserController@register')->name('register');
+Route::post('utenti/login', 'UserController@login')->name('login');
 
 Route::group(['middleware' => ['auth:api']], function () {
 	Route::get('utenti/', 'UserController@all')->name('all');
@@ -25,52 +25,35 @@ Route::group(['middleware' => ['auth:api']], function () {
 	Route::get('utenti/logout', 'UserController@logout')->name('logout');
 
 	Route::get('utenti/{id}', 'UserController@show')->name('show');
-	Route::patch('utenti/{id}', 'UserController@update')->name('update');
+	Route::post('utenti/{id}', 'UserController@update')->name('update');
 	Route::delete('utenti/{id}', 'UserController@destroy')->name('destroy');
-	Route::post('utenti/{id}/ban', 'UserController@ban')->name('ban');
-	Route::post('utenti/{id}/prenotazioni', 'UserController@reservations')->name('reservations');
+	Route::get('utenti/{id}/ban', 'UserController@ban')->name('ban');
+	Route::get('utenti/{id}/prenotazioni', 'UserController@reservations')->name('reservations');
 });
+
 /**
  * Routes /api/banchi
-Route::group([
-	'prefix' => 'banchi', 
-	'as' => 'banchi.',
-	'middleware' => ['auth:api']
-], function () {
-
-	Route::group([
-		'prefix' => '{id}',
-	], function () {
-		Route::get('/', 'DeskController@show')->name('show');
-		Route::patch('/', 'DeskController@update')->name('update');
-		Route::delete('/', 'DeskController@destroy')->name('destroy');
-	});
-
-	Route::get('/all', 'DeskController@all')->name('all');
-	Route::post('/new', 'DeskController@create')->name('new');
-});
  */
+Route::group(['middleware' => ['auth:api']], function () {
+	Route::get('banchi/{id}/', 'DeskController@show')->name('show');
+	Route::post('banchi/{id}/', 'DeskController@update')->name('update');
+	Route::delete('banchi/{id}/', 'DeskController@destroy')->name('destroy');
+	
+	Route::get('banchi', 'DeskController@all')->name('all');
+	Route::post('banchi/new', 'DeskController@create')->name('new');
+});
 
 /**
  * Routes /api/aule
-Route::group([
-	'prefix' => 'aule', 
-	'as' => 'aule.',
-	'middleware' => ['auth:api']
-], function () {
-
-	Route::group([
-		'prefix' => '{id}',
-	], function () {
-		Route::get('/', 'ClassroomController@show')->name('show');
-		Route::patch('/', 'ClassroomController@update')->name('update');
-		Route::delete('/', 'ClassroomController@destroy')->name('destroy');
-	});
-
-	Route::get('/all', 'ClassroomController@all')->name('all');
-	Route::post('/new', 'ClassroomController@create')->name('new');
-});
  */
+Route::group(['middleware' => ['auth:api']], function () {
+	Route::get('aule/{id}', 'ClassroomController@show')->name('show');
+	Route::post('aule/{id}', 'ClassroomController@update')->name('update');
+	Route::delete('aule/{id}', 'ClassroomController@destroy')->name('destroy');
+
+	Route::get('aule', 'ClassroomController@all')->name('all');
+	Route::post('aule/new', 'ClassroomController@create')->name('new');
+});
 
 /**
  * Routes /api/mappe
