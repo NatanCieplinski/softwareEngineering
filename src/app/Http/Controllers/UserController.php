@@ -32,7 +32,7 @@ class UserController extends Controller
         }
     }
 
-    private function validate(Request $request, $req=false){
+    private function validation(Request $request, $req=false){
         return Validator::make($request->all(),[
             'name' => 'string|max:255',
             'surname' => 'string|max:255',
@@ -48,7 +48,7 @@ class UserController extends Controller
     }
 
     public function create(Request $request){
-        $validator = $this->validate($request, true);
+        $validator = $this->validation($request, true);
 
         if($this->role() != "admin"){
             return Response::make("", 403);
@@ -70,7 +70,7 @@ class UserController extends Controller
     }
 
     public function update(Request $request){
-        $validator = $this->validate($request);
+        $validator = $this->validation($request);
 
         if($validator->fails()){
             return Response::json($validator->messages(), 400);
@@ -109,7 +109,7 @@ class UserController extends Controller
     }
 
     public function register(Request $request){
-        $validator = $this->validate($request, true);
+        $validator = $this->validation($request, true);
 
         if($validator->fails()){
             return Response::json($validator->messages(), 400);
@@ -128,7 +128,7 @@ class UserController extends Controller
     }
 
     public function login(Request $request){
-        $validator = $this->validate($request, true);
+        $validator = $this->validation($request, true);
 
         if ($this->hasTooManyLoginAttempts($request)){
             $this->fireLockoutEvent($request);
@@ -143,7 +143,7 @@ class UserController extends Controller
             $this->incrementLoginAttempts($request);
             return Response::make("", 401);
         }
-
+                
         $access_token = Auth::user()->createToken('auth')->accessToken;
 
         return Response::json([

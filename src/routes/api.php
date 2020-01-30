@@ -26,13 +26,14 @@ Route::group([
     Route::group(['middleware' => ['auth:api']], function () {
         Route::group([
             'prefix' => '{id}',
+            'where' => ['id', '[0-9]+']
         ], function () {
             Route::get('/', 'UserController@show')->name('show');
             Route::patch('/', 'UserController@update')->name('update');
             Route::delete('/', 'UserController@destroy')->name('destroy');
             Route::post('/ban', 'UserController@ban')->name('ban');
             Route::post('/prenotazioni', 'UserController@reservations')->name('reservations');
-        })->where('id', '[0-9]+');
+        });
 
         Route::get('/', 'UserController@all')->name('all');
         Route::post('/new', 'UserController@create')->name('new');
