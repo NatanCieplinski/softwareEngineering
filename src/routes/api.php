@@ -13,33 +13,31 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 /**
  * Routes /api/utenti
  */
 Route::group([
     'prefix' => 'utenti', 
-    'as' => 'utenti.',
-    'middleware' => ['auth:api']
+    'as' => 'utenti.'
 ], function () {
-
-    Route::group([
-        'prefix' => '{id}',
-    ], function () {
-        Route::get('/', 'UserController@show')->name('show');
-        Route::patch('/', 'UserController@update')->name('update');
-        Route::delete('/', 'UserController@destroy')->name('destroy');
-        Route::post('/ban', 'UserController@ban')->name('ban');
-        Route::post('/prenotazioni', 'UserController@reservations')->name('reservations');
-    });
-
-    Route::get('/all', 'UserController@all')->name('all');
-    Route::post('/new', 'UserController@create')->name('new');
+    Route::post('/register', 'UserController@register')->name('register');
     Route::post('/login', 'UserController@login')->name('login');
-    Route::post('/logout', 'UserController@logout')->name('logout');
+
+    Route::group(['middleware' => ['auth:api']], function () {
+        Route::group([
+            'prefix' => '{id}',
+        ], function () {
+            Route::get('/', 'UserController@show')->name('show');
+            Route::patch('/', 'UserController@update')->name('update');
+            Route::delete('/', 'UserController@destroy')->name('destroy');
+            Route::post('/ban', 'UserController@ban')->name('ban');
+            Route::post('/prenotazioni', 'UserController@reservations')->name('reservations');
+        })->where('id', '[0-9]+');
+
+        Route::get('/', 'UserController@all')->name('all');
+        Route::post('/new', 'UserController@create')->name('new');
+        Route::post('/logout', 'UserController@logout')->name('logout');
+    });
 });
 
 /**

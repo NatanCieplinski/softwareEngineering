@@ -4,51 +4,159 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
 
 class UserController extends Controller
 {
-    public function all()
-    {
-        //
+    use ThrottlesLogins;
+
+    /**
+     * Username used in ThrottlesLogins trait
+     * 
+     * @return string
+     */
+    public function username(){
+        return 'email';
     }
 
-    public function create(Request $request)
-    {
-        //
+    private function role(){
+        switch(Auth::user()->user_type){
+            case 1: return "professor";
+            case 2: return "supervisor";
+            case 3: return "admin";
+            default: return "student";
+        }
     }
 
-    public function show(User $user)
-    {
-        //
+    private function validate(Request $request, $req=false){
+        return Validator::make($request->all(),[
+            'name' => 'string|max:255',
+            'surname' => 'string|max:255',
+            'username' => 'string|max:255',
+            'email' => $req ? 'required' : ''.'|string|email|max:255|unique:users',
+            'password' => $req ? 'required' : ''.'|string',
+        ]);
+
     }
 
-    public function update(Request $request, User $user)
-    {
-        //
+    public function all(){
+        return Response::json(User::paginate(), 200);
     }
 
-    public function destroy(User $user)
-    {
-        //
+    public function create(Request $request){
+        $validator = $this->validate($request, true);
+
+        if($this->role() != "admin"){
+            return Response::make("", 403);
+        }
+
+        if($validator->fails()){
+            return Response::json($validator->messages(), 400);
+        }
+        $data = $validator->valid();
+        $data['password'] = Hash::make($data['password']);
+
+        $user = User::create($data);
+
+        return Response::make("", 201);
     }
 
-    public function ban(User $user)
-    {
-        //
+    public function show(Request $request){
+        return Response::json(User::find($request['id']), 200);
     }
 
-    public function login(Request $request)
-    {
-        //
+    public function update(Request $request){
+        $validator = $this->validate($request);
+
+        if($validator->fails()){
+            return Response::json($validator->messages(), 400);
+        }
+
+        $user = User::findOrFail($request['id']);
+
+        $data = $validator->valid();
+
+        if(isset($data['name']))
+            $user->name = $data['name'];
+        if(isset($data['surname']))
+            $user->surname = $data['surname'];
+        if(isset($data['username']))
+            $user->username = $data['username'];
+        if(isset($data['email']))
+            $user->email = $data['email'];
+        if(isset($data['password']))
+            $user->password = Hash::make($data['password']);
+
+        $user->save();
+        return Response::make("", 204);
     }
 
-    public function logout(Request $request)
-    {
-        //
+    public function destroy(Request $request){
+        $user = User::findOrFail($request['id']);
+        User::destroy($request['id']);
+        return Response::json($user, 200);
     }
 
-    public function reservations(Request $request)
-    {
-        //
+    public function ban(Request $request){
+        $user = User::findOrFail($request['id']);
+        $user->is_banned = true;
+        $user->save();
+        return Response::make("", 204);
+    }
+
+    public function register(Request $request){
+        $validator = $this->validate($request, true);
+
+        if($validator->fails()){
+            return Response::json($validator->messages(), 400);
+        }
+
+        $data = $validator->valid();
+        $data['password'] = Hash::make($data['password']);
+
+        $user = User::create($data);
+        $access_token = $user->createToken('auth')->accessToken;
+
+        return Response::json([
+            'user' => $user,
+            'access_token' => $access_token
+        ], 200);
+    }
+
+    public function login(Request $request){
+        $validator = $this->validate($request, true);
+
+        if ($this->hasTooManyLoginAttempts($request)){
+            $this->fireLockoutEvent($request);
+            return Response::make("", 429);
+        }
+
+        if($validator->fails()){
+            return Response::json($validator->messages(), 400);
+        }
+
+        if(!Auth::attempt($validator->valid())){
+            $this->incrementLoginAttempts($request);
+            return Response::make("", 401);
+        }
+
+        $access_token = Auth::user()->createToken('auth')->accessToken;
+
+        return Response::json([
+            'access_token' => $access_token
+        ], 200);
+    }
+
+    public function logout(Request $request){
+        Auth::user()->token()->revoke();
+        return Response::make("", 204);
+    }
+
+    public function reservations(Request $request){
+        
     }
 }
