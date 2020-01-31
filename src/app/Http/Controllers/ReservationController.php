@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Reservation;
 use App\Classroom;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
@@ -73,6 +74,19 @@ class ReservationController extends Controller
         $classroom = Classroom::findOrFail($request['id']);
 
         return Response::json($classroom->reservations(), 200);
+    }
+
+    public function byUser(Request $request)
+    {
+        if( Auth::user()->role() != "supervisor" && 
+            Auth::user()->role() != "admin"
+        ){
+            return Response::make("", 403);
+        }
+
+        $user = User::findOrFail($request['id']);
+
+        return Response::json($user->reservations(), 200);
     }
 
     public function destroy(Request $request)

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Desk;
+use App\Classroom;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
@@ -104,7 +105,11 @@ class DeskController extends Controller
         }
 
         $classroom = Classroom::findOrFail($request['id']);
+        $desks = collect([]);
+        foreach($classroom->desks() as $desk){
+            
+        }
 
-        return Response::json($classroom->desks(), 200);
+        return Response::json($desks, 200);
     }
 }

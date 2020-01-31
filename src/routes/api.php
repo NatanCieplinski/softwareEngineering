@@ -116,6 +116,7 @@ Route::group(['middleware' => ['auth:api']], function () {
 
 	Route::post('prenotazioni/new', 'ReservationController@create')->name('new');
 	Route::get('prenotazioni/aula/{id}', 'ReservationController@byClassroom')->name('byClassroom');
+	Route::get('prenotazioni/utente/{id}', 'ReservationController@byUser')->name('byUser');
 });
 
 /**

@@ -12,7 +12,7 @@
             <input type="checkbox" class="form-check-input" id="exampleCheck1">
             <label class="form-check-label" for="exampleCheck1">Check me out</label>
         </div>
-        <button v-on:click="login" class="btn btn-primary">Login</button>
+        <button v-on:click="login" class="nav-link btn btn-primary"><router-link style="color:white;" to="/">Login</router-link></button>
     </div>
 </template>
 
