@@ -6,13 +6,9 @@
         </div>
         <div class="form-group">
             <label for="exampleInputPassword1">Password</label>
-            <input v-model="password" type="text" value="password" class="form-control" id="exampleInputPassword1">
+            <input v-model="password" type="password" value="password" class="form-control" id="exampleInputPassword1">
         </div>
-        <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">Check me out</label>
-        </div>
-        <button v-on:click="login" class="nav-link btn btn-primary"><router-link style="color:white;" to="/">Login</router-link></button>
+        <button v-on:click="login" class="nav-link btn btn-primary">Login</button>
     </div>
 </template>
 
@@ -27,13 +23,12 @@
         },
         methods: {
             login: function (event) {
-                this.$store.dispatch('requestToken', {
+                this.$store.dispatch('login', {
                     email: this.email,
                     password: this.password
+                }).then(() => {
+                    this.$router.push('/');
                 });
-            },
-            test: function (event) {
-                this.$store.dispatch('testToken');
             },
         },
         computed: mapGetters(['GET_TOKEN']),

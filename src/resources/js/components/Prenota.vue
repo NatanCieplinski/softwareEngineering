@@ -1,10 +1,12 @@
 <template>
 	<div>
+			<h1 class="mt-5">Aula C1.10</h1>
 		<div class="row">
 			<div class="desk col-md-3" v-for="desk in GET_DESKS" :key="desk.id">
 				<div class="seat-container">
 					<div class="seat" v-for="seat in getSeats(desk)" :key="seat"
-						v-bind:style="{ width: 'calc(100%/'+desk.tipo_banco.numero_posti/2+')' }" 
+						v-bind:style="{ width: 'calc(100%/'+desk.tipo_banco.numero_posti/2+')', 
+						background: GET_RESERVED[desk.id][seat] ? '#b2e87b' : '#ff5757'}" 
 					>
 						<div v-on:click="reserveSeat(desk.id, seat)"></div>
 					</div>
@@ -13,7 +15,7 @@
 			<div class="form-inline mt-5">
 				<div class="form-group">
 					<label class="ml-3">Da Ora: </label>
-					<select v-model="da_ora" class="form-control ml-3">
+					<select v-model="da_ora" v-on:change="checkAvailability" class="form-control ml-3">
 						<option value="08:00:00">08:00</option>
 						<option value="09:00:00">09:00</option>
 						<option value="10:00:00">10:00</option>
@@ -30,7 +32,7 @@
 				</div>
 				<div class="form-group">
 					<label class="ml-3">Ad Ora: </label>
-					<select v-model="ad_ora" class="form-control ml-3">
+					<select v-model="ad_ora" v-on:change="checkAvailability" class="form-control ml-3">
 						<option value="08:00:00">08:00</option>
 						<option value="09:00:00">09:00</option>
 						<option value="10:00:00">10:00</option>
@@ -53,11 +55,14 @@
 
 <script>
 	import { mapGetters } from 'vuex';
+	const axios = require('axios').default;
+	
 	export default {
 		data: function () { 
 			return {
 				da_ora: '',
-				ad_ora: ''
+				ad_ora: '',
+				colors: []
 			}
 		},
 		methods: {
@@ -71,26 +76,44 @@
 				return seats;
 			},
 			reserveSeat: function (desk_id, seat_id) {
-				if(this.da_ora.localeCompare(this.ad_ora)<0){
-					this.$store.dispatch('reserveSeat', {
-						da_ora: this.da_ora,
-						ad_ora: this.ad_ora,
-						user_id: this.$store.getters.GET_USER.id,
-						desk_id: desk_id,
-						seat_id: seat_id,
-					});
+				if(this.da_ora.localeCompare(this.ad_ora)<0 &&
+					this.da_ora != '' && this.ad_ora != ''	
+				){
+					if(confirm("Vuoi prenotare il posto?")){
+						this.$store.dispatch('reserveSeat', {
+							da_ora: this.da_ora,
+							ad_ora: this.ad_ora,
+							user_id: this.$store.getters.GET_USER.id,
+							desk_id: desk_id,
+							seat_id: seat_id,
+						});
+					}
 				}
 			},
+			checkAvailability: function(){
+				if(this.da_ora.localeCompare(this.ad_ora)<0 &&
+					this.da_ora != '' && this.ad_ora != ''	
+				){
+					this.$store.dispatch('checkAvailability', {
+						da_ora: this.da_ora,
+						ad_ora: this.ad_ora,
+					});
+				};
+			},
 		},
-		computed: mapGetters(['GET_DESKS']),
-		beforeCreate(){
-			this.$store.dispatch('requestToken', {
-				email: "a@a.com",
-				password: "password"
-			});
+		computed: {
+			...mapGetters(['GET_DESKS','GET_RESERVED','GET_TOKEN']),
 		},
 		created(){
-			this.$store.dispatch('getDesks');
+			this.$http.interceptors.response.use(undefined, function (err) {
+				return new Promise(function (resolve, reject) {
+					if (err.status === 401 && err.config && !err.config.__isRetryRequest) {
+						this.$store.dispatch(logout)
+					}
+					throw err;
+				});
+			});
+			this.$store.dispatch('getDesks')
 		}
 	}
 </script>
@@ -113,7 +136,7 @@
 		background:red; 
 		height: calc(100%/2);
 		margin: 0px;
-		border: 1px solid blue;
+		border: 1px solid black;
 	}
 	.seat > div{
 		width: 100%;

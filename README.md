@@ -12,33 +12,26 @@ Repository del gruppo **GitPub** per l'esame di Software Engineering 2019 - 2020
 | Alessandro Lodi  | 253383    | alelod96@gmail.com                 |
 | Patrizia Villani | 253382    | patrizia.vil@icloud.com            |
 
-### Consegne:
+###API Postman
 
--  **Milestone 1:** (5/12/2019) il file è chiamato *Milestone1*
--  **Deliverable1**: (21/12/2019) il file è chiamato *Deliverable1*
-   Le modifiche rispetto al documento precedente sono state evidenziate per colore. In rosso le **cancellazioni** e in verde le *aggiunte**.
-   Le API Documentation si possono trovare [qui](https://documenter.getpostman.com/view/5342440/SWEE2Fdz?version=latest )
--  **Deliverable2**: (18/01/2020) Ci sono stati dei ritardi nella creazione del nuovo documento ma sono state mappate le api con laravel presenti nella cartella src e modificate le API di postman disponibili [qui](https://documenter.getpostman.com/view/5342440/SWT5k2Eb?version=latest)
+La documentazione delle API può essere trovata al seguente link:
+https://documenter.getpostman.com/view/5342440/SWTD8x88?version=latest
 
-### Avviare il test
-1. Spostarsi nella cartella src/laradock
-2. cp env-example .env
-3. docker-compose up --build mysql nginx phpmyadmin workspace
-4. Aggiungere 127.0.0.1 softeng.test agli hosts
-5. Spostarsi nella cartella src
-6. cp .env.example .env
-7. Modificare .env con:
-     - DB_HOST=mysql
-     - DB_DATABASE=default 
-     - DB_USERNAME=root
-     - DB_PASSWORD=root
-8. docker exec -it laradock_workspace_1 bash
-9. composer install
-10. php artisan key:generate
-11. php artisan migrate
+### Video Prototipo
 
-#### Per PhpMyAdmin
-Visitare softeng.test:8080
-  - server: mysql
-  - username: root
-  - password: root
+#### Login
+
+![](https://media.giphy.com/media/RMN1WsiIqauzYFzTQo/giphy.gif)
+
+#### Visualizzazione posti liberi per fasce orarie
+
+![](https://media.giphy.com/media/fscW05wVu1SSv8I1zV/giphy.gif)
+
+#### Prenotazione posto
+
+![](https://media.giphy.com/media/YneaO58CtiI4Y0aw9w/giphy.gif)
+
+#### Cancellazione prenotazione
+
+![](https://media.giphy.com/media/UWDCaTBDy123aleOOs/giphy.gif)
+

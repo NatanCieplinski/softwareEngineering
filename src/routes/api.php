@@ -16,126 +16,126 @@ use Illuminate\Http\Request;
 /**
  * Routes /api/utenti
  */
-Route::post('utenti/register', 'UserController@register')->name('register');
-Route::post('utenti/login', 'UserController@login')->name('login');
+Route::post('utenti/register', 'UserController@register');
+Route::post('utenti/login', 'UserController@login');
 
 Route::group(['middleware' => ['auth:api']], function () {
-	Route::get('utenti/', 'UserController@all')->name('all');
-	Route::post('utenti/new', 'UserController@create')->name('new');
-	Route::get('utenti/logout', 'UserController@logout')->name('logout');
+	Route::get('utenti/', 'UserController@all');
+	Route::post('utenti/new', 'UserController@create');
+	Route::get('utenti/logout', 'UserController@logout');
 
-	Route::get('utenti/{id}', 'UserController@show')->name('show');
-	Route::post('utenti/{id}', 'UserController@update')->name('update');
-	Route::delete('utenti/{id}', 'UserController@destroy')->name('destroy');
-	Route::get('utenti/{id}/ban', 'UserController@ban')->name('ban');
-	Route::get('utenti/{id}/prenotazioni', 'UserController@reservations')->name('reservations');
+	Route::get('utenti/{id}', 'UserController@show');
+	Route::post('utenti/{id}', 'UserController@update');
+	Route::delete('utenti/{id}', 'UserController@destroy');
+	Route::get('utenti/{id}/ban', 'UserController@ban');
+	Route::get('utenti/{id}/prenotazioni', 'UserController@reservations');
 });
 
 /**
  * Routes /api/banchi
  */
 Route::group(['middleware' => ['auth:api']], function () {
-	Route::get('banchi/{id}/', 'DeskController@show')->name('show');
-	Route::post('banchi/{id}/', 'DeskController@update')->name('update');
-	Route::delete('banchi/{id}/', 'DeskController@destroy')->name('destroy');
+	Route::get('banchi/{id}/', 'DeskController@show');
+	Route::post('banchi/{id}/', 'DeskController@update');
+	Route::delete('banchi/{id}/', 'DeskController@destroy');
 	
-	Route::get('banchi', 'DeskController@all')->name('all');
-	Route::get('banchi/aula/{id}', 'DeskController@byClassroom')->name('all');
-	Route::post('banchi/new', 'DeskController@create')->name('new');
+	Route::get('banchi', 'DeskController@all');
+	Route::get('banchi/aula/{id}', 'DeskController@byClassroom');
+	Route::post('banchi/new', 'DeskController@create');
 });
 
 /**
  * Routes /api/aule
  */
 Route::group(['middleware' => ['auth:api']], function () {
-	Route::get('aule/{id}', 'ClassroomController@show')->name('show');
-	Route::post('aule/{id}', 'ClassroomController@update')->name('update');
-	Route::delete('aule/{id}', 'ClassroomController@destroy')->name('destroy');
+	Route::get('aule/{id}', 'ClassroomController@show');
+	Route::post('aule/{id}', 'ClassroomController@update');
+	Route::delete('aule/{id}', 'ClassroomController@destroy');
 
-	Route::get('aule', 'ClassroomController@all')->name('all');
-	Route::post('aule/new', 'ClassroomController@create')->name('new');
+	Route::get('aule', 'ClassroomController@all');
+	Route::post('aule/new', 'ClassroomController@create');
 });
 
 /**
  * Routes /api/mappe
  */
 Route::group(['middleware' => ['auth:api']], function () {
-	Route::get('mappe/{id}', 'MapController@show')->name('show');
-	Route::post('mappe/{id}', 'MapController@update')->name('update');
-	Route::delete('mappe/{id}', 'MapController@destroy')->name('destroy');
-	Route::post('mappe/{id}/upload', 'MapController@upload')->name('upload');
-	Route::post('mappe/{id}/download', 'MapController@download')->name('download');
+	Route::get('mappe/{id}', 'MapController@show');
+	Route::post('mappe/{id}', 'MapController@update');
+	Route::delete('mappe/{id}', 'MapController@destroy');
+	Route::post('mappe/{id}/upload', 'MapController@upload');
+	Route::post('mappe/{id}/download', 'MapController@download');
 
-	Route::get('mappe', 'MapController@all')->name('all');
-	Route::post('mappe/new', 'MapController@create')->name('new');
+	Route::get('mappe', 'MapController@all');
+	Route::post('mappe/new', 'MapController@create');
 });
 
 /**
  * Routes /api/tipibanco
  */
 Route::group(['middleware' => ['auth:api']], function () {
-	Route::get('tipibanco/{id}', 'DesktypeController@show')->name('show');
-	Route::post('tipibanco/{id}', 'DesktypeController@update')->name('update');
-	Route::delete('tipibanco/{id}', 'DesktypeController@destroy')->name('destroy');
+	Route::get('tipibanco/{id}', 'DesktypeController@show');
+	Route::post('tipibanco/{id}', 'DesktypeController@update');
+	Route::delete('tipibanco/{id}', 'DesktypeController@destroy');
 	
-	Route::get('tipibanco', 'DesktypeController@all')->name('all');
-	Route::post('tipibanco/new', 'DesktypeController@create')->name('new');
+	Route::get('tipibanco', 'DesktypeController@all');
+	Route::post('tipibanco/new', 'DesktypeController@create');
 });
 
 /**
  * Routes /api/configurazioni
  */
 Route::group(['middleware' => ['auth:api']], function () {
-	Route::get('configurazioni/{id}', 'ConfigurationController@show')->name('show');
-	Route::post('configurazioni/{id}', 'ConfigurationController@update')->name('update');
-	Route::delete('configurazioni/{id}', 'ConfigurationController@destroy')->name('destroy');
+	Route::get('configurazioni/{id}', 'ConfigurationController@show');
+	Route::post('configurazioni/{id}', 'ConfigurationController@update');
+	Route::delete('configurazioni/{id}', 'ConfigurationController@destroy');
 
-	Route::get('configurazioni', 'ConfigurationController@all')->name('all');
-	Route::post('configurazioni/new', 'ConfigurationController@create')->name('new');
+	Route::get('configurazioni', 'ConfigurationController@all');
+	Route::post('configurazioni/new', 'ConfigurationController@create');
 });
 
 /**
  * Routes /api/segnalazioni
  */
 Route::group(['middleware' => ['auth:api']], function () {
-	Route::get('segnalazioni/{id}', 'ReportController@show')->name('show');
-	Route::post('segnalazioni/{id}', 'ReportController@update')->name('update');
-	Route::delete('segnalazioni/{id}', 'ReportController@destroy')->name('destroy');
+	Route::get('segnalazioni/{id}', 'ReportController@show');
+	Route::post('segnalazioni/{id}', 'ReportController@update');
+	Route::delete('segnalazioni/{id}', 'ReportController@destroy');
 
-	Route::get('segnalazioni/utente/{id}', 'ReportController@byUser')->name('byUser');
-	Route::post('segnalazioni/new', 'ReportController@create')->name('new');
+	Route::get('segnalazioni/utente/{id}', 'ReportController@byUser');
+	Route::post('segnalazioni/new', 'ReportController@create');
 });
 
 /**
  * Routes /api/prenotazioni
  */
 Route::group(['middleware' => ['auth:api']], function () {
-	Route::delete('prenotazioni/{id}', 'ReservationController@destroy')->name('destroy');
-	Route::post('prenotazioni/{id}/checkin', 'ReservationController@checkin')->name('checkin');
-	Route::post('prenotazioni/{id}/pausa', 'ReservationController@pause')->name('pause');
+	Route::delete('prenotazioni/{id}', 'ReservationController@destroy');
+	Route::post('prenotazioni/{id}/checkin', 'ReservationController@checkin');
+	Route::post('prenotazioni/{id}/pausa', 'ReservationController@pause');
 
-	Route::post('prenotazioni/new', 'ReservationController@create')->name('new');
-	Route::get('prenotazioni/aula/{id}', 'ReservationController@byClassroom')->name('byClassroom');
-	Route::get('prenotazioni/utente/{id}', 'ReservationController@byUser')->name('byUser');
+	Route::post('prenotazioni/new', 'ReservationController@create');
+	Route::post('prenotazioni/aula/{id}', 'ReservationController@byClassroom');
+	Route::get('prenotazioni/utente/{id}', 'ReservationController@byUser');
 });
 
 /**
  * Routes /api/schedules
  */
 Route::group(['middleware' => ['auth:api']], function () {
-	Route::delete('schedules/{id}', 'ScheduleController@destroy')->name('destroy');
+	Route::delete('schedules/{id}', 'ScheduleController@destroy');
 
-	Route::post('schedules/new', 'ScheduleController@create')->name('new');
-	Route::get('schedules/utente/{id}', 'ScheduleController@byUser')->name('byUser');
-	Route::get('schedules/aula/{id}', 'ScheduleController@byClassroom')->name('byClassroom');
+	Route::post('schedules/new', 'ScheduleController@create');
+	Route::get('schedules/utente/{id}', 'ScheduleController@byUser');
+	Route::get('schedules/aula/{id}', 'ScheduleController@byClassroom');
 });
 
 /**
  * Routes /api/chisure
  */
 Route::group(['middleware' => ['auth:api']], function () {
-	Route::delete('chisure/{id}', 'ClosingController@destroy')->name('destroy');
+	Route::delete('chisure/{id}', 'ClosingController@destroy');
 
-	Route::post('chisure/new', 'ClosingController@create')->name('new');
-	Route::get('chisure/aula/{id}', 'ClosingController@byClassroom')->name('byClassroom');
+	Route::post('chisure/new', 'ClosingController@create');
+	Route::get('chisure/aula/{id}', 'ClosingController@byClassroom');
 });

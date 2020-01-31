@@ -10,6 +10,7 @@ export default {
     actions: {
         async getReservations({commit}, id){
             axios.get('api/prenotazioni/utente/'+id).then(function(response){
+                console.log(response.data)
                 commit('SET_RESERVATIONS', response.data);
             });
         },

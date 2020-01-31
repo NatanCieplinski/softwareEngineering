@@ -14,8 +14,8 @@ class ReservationController extends Controller
 {
     private function validation(Request $request, $req=false){
         return Validator::make($request->all(),[
-            'da_ora' => $req ? 'required' : ''.'|date_format:H:i',
-            'ad_ora' => $req ? 'required' : ''.'|date_format:H:i',
+            'da_ora' => $req ? 'required' : ''.'|date_format:H:i:s',
+            'ad_ora' => $req ? 'required' : ''.'|date_format:H:i:s',
             'posto' => $req ? 'required' : ''.'|integer|max:10',
             'user_id' => $req ? 'required' : ''.'|integer|max:20',
             'desk_id' => $req ? 'required' : ''.'|integer|max:20',
@@ -44,8 +44,8 @@ class ReservationController extends Controller
         }
         $data = $validator->valid();
         $data['data'] = date('Y-m-d', strtotime(' +1 day'));
-        $data['da_ora'] = date('h:i:s', strtotime($data['da_ora']));
-        $data['ad_ora'] = date('h:i:s', strtotime($data['ad_ora']));
+        $data['da_ora'] = date('H:i:s', strtotime($data['da_ora']));
+        $data['ad_ora'] = date('H:i:s', strtotime($data['ad_ora']));
 
         $reservation = Reservation::create($data);
 
@@ -73,9 +73,21 @@ class ReservationController extends Controller
             return Response::make("", 403);
         }
 
-        $classroom = Classroom::findOrFail($request['id']);
+        $validator = $this->validation($request);
 
-        return Response::json($classroom->reservations(), 200);
+        if($validator->fails()){
+            return Response::json($validator->messages(), 400);
+        }
+
+        $classroom = Classroom::findOrFail($request['id']);
+        $data = $validator->valid();
+        $date = date('Y-m-d', strtotime(' +1 day'));
+        $data['da_ora'] = date('H:i:s', strtotime($data['da_ora']));
+        $data['ad_ora'] = date('H:i:s', strtotime($data['ad_ora']));
+
+        return Response::json(
+            ["data" => $classroom->reservations($date, $data['da_ora'], $data['ad_ora'])]
+        , 200);
     }
 
     public function byUser(Request $request)

@@ -1935,10 +1935,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -1949,13 +1945,14 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     login: function login(event) {
-      this.$store.dispatch('requestToken', {
+      var _this = this;
+
+      this.$store.dispatch('login', {
         email: this.email,
         password: this.password
+      }).then(function () {
+        _this.$router.push('/');
       });
-    },
-    test: function test(event) {
-      this.$store.dispatch('testToken');
     }
   },
   computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['GET_TOKEN'])
@@ -2032,6 +2029,14 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
 //
 //
 //
@@ -2086,11 +2091,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
+var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js")["default"];
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       da_ora: '',
-      ad_ora: ''
+      ad_ora: '',
+      colors: []
     };
   },
   methods: {
@@ -2107,25 +2116,40 @@ __webpack_require__.r(__webpack_exports__);
       return seats;
     },
     reserveSeat: function reserveSeat(desk_id, seat_id) {
-      if (this.da_ora.localeCompare(this.ad_ora) < 0) {
-        this.$store.dispatch('reserveSeat', {
+      if (this.da_ora.localeCompare(this.ad_ora) < 0 && this.da_ora != '' && this.ad_ora != '') {
+        if (confirm("Vuoi prenotare il posto?")) {
+          this.$store.dispatch('reserveSeat', {
+            da_ora: this.da_ora,
+            ad_ora: this.ad_ora,
+            user_id: this.$store.getters.GET_USER.id,
+            desk_id: desk_id,
+            seat_id: seat_id
+          });
+        }
+      }
+    },
+    checkAvailability: function checkAvailability() {
+      if (this.da_ora.localeCompare(this.ad_ora) < 0 && this.da_ora != '' && this.ad_ora != '') {
+        this.$store.dispatch('checkAvailability', {
           da_ora: this.da_ora,
-          ad_ora: this.ad_ora,
-          user_id: this.$store.getters.GET_USER.id,
-          desk_id: desk_id,
-          seat_id: seat_id
+          ad_ora: this.ad_ora
         });
       }
+
+      ;
     }
   },
-  computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['GET_DESKS']),
-  beforeCreate: function beforeCreate() {
-    this.$store.dispatch('requestToken', {
-      email: "a@a.com",
-      password: "password"
-    });
-  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['GET_DESKS', 'GET_RESERVED', 'GET_TOKEN'])),
   created: function created() {
+    this.$http.interceptors.response.use(undefined, function (err) {
+      return new Promise(function (resolve, reject) {
+        if (err.status === 401 && err.config && !err.config.__isRetryRequest) {
+          this.$store.dispatch(logout);
+        }
+
+        throw err;
+      });
+    });
     this.$store.dispatch('getDesks');
   }
 });
@@ -2169,12 +2193,6 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['GET_RESERVATIONS']),
-  beforeCreate: function beforeCreate() {
-    this.$store.dispatch('requestToken', {
-      email: "a@a.com",
-      password: "password"
-    });
-  },
   created: function created() {
     this.$store.dispatch('getReservations', this.$store.getters.GET_USER.id);
   }
@@ -6744,7 +6762,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".desk[data-v-bd74dc14] {\n  height: 80px;\n  padding: 0px 15px;\n  margin-top: 15px;\n}\n.seat-container[data-v-bd74dc14] {\n  border: 1px solid black;\n  width: 100%;\n  height: 100%;\n  display: -webkit-box;\n  display: flex;\n  flex-wrap: wrap;\n}\n.seat[data-v-bd74dc14] {\n  background: red;\n  height: calc(100%/2);\n  margin: 0px;\n  border: 1px solid blue;\n}\n.seat > div[data-v-bd74dc14] {\n  width: 100%;\n  height: 100%;\n}", ""]);
+exports.push([module.i, ".desk[data-v-bd74dc14] {\n  height: 80px;\n  padding: 0px 15px;\n  margin-top: 15px;\n}\n.seat-container[data-v-bd74dc14] {\n  border: 1px solid black;\n  width: 100%;\n  height: 100%;\n  display: -webkit-box;\n  display: flex;\n  flex-wrap: wrap;\n}\n.seat[data-v-bd74dc14] {\n  background: red;\n  height: calc(100%/2);\n  margin: 0px;\n  border: 1px solid black;\n}\n.seat > div[data-v-bd74dc14] {\n  width: 100%;\n  height: 100%;\n}", ""]);
 
 // exports
 
@@ -39130,7 +39148,11 @@ var render = function() {
           }
         ],
         staticClass: "form-control",
-        attrs: { type: "text", value: "password", id: "exampleInputPassword1" },
+        attrs: {
+          type: "password",
+          value: "password",
+          id: "exampleInputPassword1"
+        },
         domProps: { value: _vm.password },
         on: {
           input: function($event) {
@@ -39143,41 +39165,14 @@ var render = function() {
       })
     ]),
     _vm._v(" "),
-    _vm._m(0),
-    _vm._v(" "),
     _c(
       "button",
       { staticClass: "nav-link btn btn-primary", on: { click: _vm.login } },
-      [
-        _c(
-          "router-link",
-          { staticStyle: { color: "white" }, attrs: { to: "/" } },
-          [_vm._v("Login")]
-        )
-      ],
-      1
+      [_vm._v("Login")]
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group form-check" }, [
-      _c("input", {
-        staticClass: "form-check-input",
-        attrs: { type: "checkbox", id: "exampleCheck1" }
-      }),
-      _vm._v(" "),
-      _c(
-        "label",
-        { staticClass: "form-check-label", attrs: { for: "exampleCheck1" } },
-        [_vm._v("Check me out")]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -39337,6 +39332,8 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
+    _c("h1", { staticClass: "mt-5" }, [_vm._v("Aula C1.10")]),
+    _vm._v(" "),
     _c(
       "div",
       { staticClass: "row" },
@@ -39354,7 +39351,10 @@ var render = function() {
                     staticClass: "seat",
                     style: {
                       width:
-                        "calc(100%/" + desk.tipo_banco.numero_posti / 2 + ")"
+                        "calc(100%/" + desk.tipo_banco.numero_posti / 2 + ")",
+                      background: _vm.GET_RESERVED[desk.id][seat]
+                        ? "#b2e87b"
+                        : "#ff5757"
                     }
                   },
                   [
@@ -39390,19 +39390,22 @@ var render = function() {
                 ],
                 staticClass: "form-control ml-3",
                 on: {
-                  change: function($event) {
-                    var $$selectedVal = Array.prototype.filter
-                      .call($event.target.options, function(o) {
-                        return o.selected
-                      })
-                      .map(function(o) {
-                        var val = "_value" in o ? o._value : o.value
-                        return val
-                      })
-                    _vm.da_ora = $event.target.multiple
-                      ? $$selectedVal
-                      : $$selectedVal[0]
-                  }
+                  change: [
+                    function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.da_ora = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    },
+                    _vm.checkAvailability
+                  ]
                 }
               },
               [
@@ -39473,19 +39476,22 @@ var render = function() {
                 ],
                 staticClass: "form-control ml-3",
                 on: {
-                  change: function($event) {
-                    var $$selectedVal = Array.prototype.filter
-                      .call($event.target.options, function(o) {
-                        return o.selected
-                      })
-                      .map(function(o) {
-                        var val = "_value" in o ? o._value : o.value
-                        return val
-                      })
-                    _vm.ad_ora = $event.target.multiple
-                      ? $$selectedVal
-                      : $$selectedVal[0]
-                  }
+                  change: [
+                    function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.ad_ora = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    },
+                    _vm.checkAvailability
+                  ]
                 }
               },
               [
@@ -55782,11 +55788,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _router_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./router.js */ "./resources/js/router.js");
 /* harmony import */ var _store_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./store.js */ "./resources/js/store.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
+
 
 
 
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$http = axios__WEBPACK_IMPORTED_MODULE_3___default.a;
+var token = localStorage.getItem('token');
+
+if (token) {
+  vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$http.defaults.headers.common['Authorization'] = 'Bearer ' + token;
+}
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('navbar-component', __webpack_require__(/*! ./components/Navbar.vue */ "./resources/js/components/Navbar.vue")["default"]);
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
@@ -56268,66 +56284,46 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js")["default"];
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: {
-    access_token: "",
-    user: ''
+    access_token: localStorage.getItem('token') || '',
+    user: {
+      id: localStorage.getItem('user') || ''
+    }
   },
   mutations: {
-    SET_TOKEN: function SET_TOKEN(state, token) {
-      return state.access_token = token;
-    },
     SET_USER: function SET_USER(state, user) {
       return state.user = user;
+    },
+    AUTH_SUCCESS: function AUTH_SUCCESS(state, token, user) {
+      state.token = token;
+      state.user = user;
     }
   },
   actions: {
-    requestToken: function () {
-      var _requestToken = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(_ref, data) {
-        var commit;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                commit = _ref.commit;
-                axios.post('api/utenti/login', {
-                  email: data.email,
-                  password: data.password
-                }).then(function (response) {
-                  commit('SET_TOKEN', response.data.access_token);
-                  commit('SET_USER', response.data.user);
-                  axios.defaults.headers.common = {
-                    'Accept': 'application/json',
-                    'Authorization': "Bearer ".concat(response.data.access_token)
-                  };
-                });
-
-              case 2:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }));
-
-      function requestToken(_x, _x2) {
-        return _requestToken.apply(this, arguments);
-      }
-
-      return requestToken;
-    }()
+    login: function login(_ref, user) {
+      var commit = _ref.commit;
+      return new Promise(function (resolve, reject) {
+        axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('api/utenti/login', user).then(function (resp) {
+          var token = resp.data.access_token;
+          var user = resp.data.user;
+          localStorage.setItem('token', token);
+          localStorage.setItem('user', user.id);
+          vue__WEBPACK_IMPORTED_MODULE_0___default.a.set(axios__WEBPACK_IMPORTED_MODULE_1___default.a.defaults.headers.common, 'Authorization', 'Bearer ' + token);
+          commit('AUTH_SUCCESS', token, user);
+          resolve(resp);
+        })["catch"](function (err) {
+          localStorage.removeItem('token');
+          reject(err);
+        });
+      });
+    }
   },
   getters: {
     GET_TOKEN: function GET_TOKEN(state) {
@@ -56335,6 +56331,9 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js")["d
     },
     GET_USER: function GET_USER(state) {
       return state.user;
+    },
+    IS_LOGGED: function IS_LOGGED(state) {
+      return !!state.access_token;
     }
   }
 });
@@ -56352,21 +56351,32 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js")["d
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_1__);
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+
+
 var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js")["default"];
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: {
-    desks: []
+    desks: [],
+    reserved: []
   },
   mutations: {
     SET_DESKS: function SET_DESKS(state, desks) {
       return state.desks = desks;
+    },
+    SET_RESERVED: function SET_RESERVED(state, reserved) {
+      return state.reserved = reserved;
+    },
+    SET_SEAT: function SET_SEAT(state, data) {
+      return vue__WEBPACK_IMPORTED_MODULE_1___default.a.set(state.reserved, data.index, data.array);
     }
   },
   actions: {
@@ -56374,13 +56384,14 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js")["d
       var _getDesks = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(_ref, data) {
-        var commit;
+        var commit, dispatch;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                commit = _ref.commit;
+                commit = _ref.commit, dispatch = _ref.dispatch;
                 axios.get('api/banchi/aula/1').then(function (response) {
+                  dispatch('initReserved', response.data);
                   commit('SET_DESKS', response.data);
                 });
 
@@ -56402,12 +56413,12 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js")["d
       var _reserveSeat = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2, data) {
-        var commit, payload;
+        var dispatch, payload;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                commit = _ref2.commit;
+                dispatch = _ref2.dispatch;
                 payload = {
                   da_ora: data.da_ora,
                   ad_ora: data.ad_ora,
@@ -56416,7 +56427,12 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js")["d
                   desk_id: data.desk_id
                 };
                 axios.post('api/prenotazioni/new', payload).then(function (response) {
-                  console.log(response);
+                  var requestData = {
+                    da_ora: data.da_ora,
+                    ad_ora: data.ad_ora,
+                    classroom_id: 1
+                  };
+                  dispatch('checkAvailability', requestData);
                 });
 
               case 3:
@@ -56432,11 +56448,73 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js")["d
       }
 
       return reserveSeat;
-    }()
+    }(),
+    checkAvailability: function () {
+      var _checkAvailability = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref3, data) {
+        var commit, getters, payload;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                commit = _ref3.commit, getters = _ref3.getters;
+                payload = {
+                  da_ora: data.da_ora,
+                  ad_ora: data.ad_ora
+                };
+                axios.post('api/prenotazioni/aula/1', payload).then(function (response) {
+                  var reserved = getters.GET_RESERVED;
+                  var desks = getters.GET_DESKS;
+                  desks.forEach(function (desk) {
+                    for (var i = 0; i < desk.tipo_banco.numero_posti; i++) {
+                      reserved[desk.id][i] = true;
+                    }
+                  });
+                  response.data.data.forEach(function (reservation) {
+                    reserved[reservation.desk_id][reservation.posto] = false;
+                  });
+                  reserved.forEach(function (desk, index) {
+                    commit('SET_SEAT', {
+                      array: desk,
+                      index: index
+                    });
+                  });
+                });
+
+              case 3:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }));
+
+      function checkAvailability(_x5, _x6) {
+        return _checkAvailability.apply(this, arguments);
+      }
+
+      return checkAvailability;
+    }(),
+    initReserved: function initReserved(_ref4, desks) {
+      var commit = _ref4.commit;
+      var reserved = new Array();
+      desks.forEach(function (desk) {
+        reserved[desk.id] = new Array();
+
+        for (var i = 0; i < desk.tipo_banco.numero_posti; i++) {
+          reserved[desk.id][i] = false;
+        }
+      });
+      commit('SET_RESERVED', reserved);
+    }
   },
   getters: {
     GET_DESKS: function GET_DESKS(state) {
       return state.desks;
+    },
+    GET_RESERVED: function GET_RESERVED(state) {
+      return state.reserved;
     }
   }
 });
@@ -56483,6 +56561,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js")["d
               case 0:
                 commit = _ref.commit;
                 axios.get('api/prenotazioni/utente/' + id).then(function (response) {
+                  console.log(response.data);
                   commit('SET_RESERVATIONS', response.data);
                 });
 
@@ -56556,10 +56635,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
-/* harmony import */ var _components_Prenota__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Prenota */ "./resources/js/components/Prenota.vue");
-/* harmony import */ var _components_Login__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Login */ "./resources/js/components/Login.vue");
-/* harmony import */ var _components_Prenotazioni__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/Prenotazioni */ "./resources/js/components/Prenotazioni.vue");
-/* harmony import */ var _components_PageNotFound__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/PageNotFound */ "./resources/js/components/PageNotFound.vue");
+/* harmony import */ var _store_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./store.js */ "./resources/js/store.js");
+/* harmony import */ var _components_Prenota__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Prenota */ "./resources/js/components/Prenota.vue");
+/* harmony import */ var _components_Login__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/Login */ "./resources/js/components/Login.vue");
+/* harmony import */ var _components_Prenotazioni__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/Prenotazioni */ "./resources/js/components/Prenotazioni.vue");
+/* harmony import */ var _components_PageNotFound__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/PageNotFound */ "./resources/js/components/PageNotFound.vue");
+
 
 
 
@@ -56567,22 +56648,23 @@ __webpack_require__.r(__webpack_exports__);
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
-/* harmony default export */ __webpack_exports__["default"] = (new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
+var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   routes: [{
     path: '/',
-    component: _components_Prenota__WEBPACK_IMPORTED_MODULE_2__["default"]
+    component: _components_Prenota__WEBPACK_IMPORTED_MODULE_3__["default"]
   }, {
     path: '/prenotazioni',
-    component: _components_Prenotazioni__WEBPACK_IMPORTED_MODULE_4__["default"]
+    component: _components_Prenotazioni__WEBPACK_IMPORTED_MODULE_5__["default"]
   }, {
     path: '/login',
-    component: _components_Login__WEBPACK_IMPORTED_MODULE_3__["default"]
+    component: _components_Login__WEBPACK_IMPORTED_MODULE_4__["default"]
   }, {
     path: '*',
-    component: _components_PageNotFound__WEBPACK_IMPORTED_MODULE_5__["default"]
+    component: _components_PageNotFound__WEBPACK_IMPORTED_MODULE_6__["default"]
   }],
   mode: 'history'
-}));
+});
+/* harmony default export */ __webpack_exports__["default"] = (router);
 
 /***/ }),
 

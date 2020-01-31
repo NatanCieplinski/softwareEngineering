@@ -27,12 +27,6 @@
             },
         },
         computed: mapGetters(['GET_RESERVATIONS']),
-        beforeCreate(){
-            this.$store.dispatch('requestToken', {
-                email: "a@a.com",
-                password: "password"
-            });
-        },
         created(){
             this.$store.dispatch('getReservations', this.$store.getters.GET_USER.id);
         }

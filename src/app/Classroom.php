@@ -43,12 +43,12 @@ class Classroom extends Model
     /**
      * Get reservations of the classroom
      */
-    public function reservations()
+    public function reservations($data, $da_ora, $ad_ora)
     {
         $desks = $this->hasMany('App\Desk')->getResults();
         $reservations = collect([]);
         foreach($desks as $desk){
-            $reservations = $reservations->merge($desk->reservations());
+            $reservations = $reservations->merge($desk->reservations($data, $da_ora, $ad_ora));
         }
         return $reservations;
     }

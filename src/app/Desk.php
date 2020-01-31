@@ -44,8 +44,12 @@ class Desk extends Model
     /**
      * Get reservations of desk
      */
-    public function reservations()
+    public function reservations($data, $da_ora, $ad_ora)
     {
-        return $this->hasMany('App\Reservation')->getResults();
+        return $this->hasMany('App\Reservation')
+            ->where('data', $data)
+            ->where('da_ora', '>=', $da_ora)
+            ->where('ad_ora', '<=', $ad_ora)
+            ->getResults();
     }
 }
