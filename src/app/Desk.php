@@ -40,4 +40,12 @@ class Desk extends Model
         'x_pos',
         'y_pos'
     ];
+
+    /**
+     * Get reservations of desk
+     */
+    public function reservations()
+    {
+        return $this->hasMany('App\Reservation')->getResults();
+    }
 }

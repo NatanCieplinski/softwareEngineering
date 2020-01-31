@@ -47,6 +47,22 @@ class User extends Authenticatable
     }
 
     /**
+     * Get schedules of the user
+     */
+    public function schedules()
+    {
+        return $this->hasMany('App\Schedule')->getResults();
+    }
+
+    /**
+     * Get reports of the user
+     */
+    public function reports()
+    {
+        return $this->hasMany('App\Report', 'user_id')->getResults();
+    }
+
+    /**
      * Get user role
      */
     public function role(){
