@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Desk;
 use App\Classroom;
+use App\Desktype;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
@@ -105,9 +106,11 @@ class DeskController extends Controller
         }
 
         $classroom = Classroom::findOrFail($request['id']);
-        $desks = collect([]);
-        foreach($classroom->desks() as $desk){
-            
+        
+        $desks = $classroom->desks();
+        foreach($desks as $i => $desk){
+            $desk->tipo_banco = Desktype::findOrFail($desk->desktype_id);
+            $desks[$i] = $desk;
         }
 
         return Response::json($desks, 200);
