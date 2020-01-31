@@ -14,7 +14,6 @@ class ReservationController extends Controller
 {
     private function validation(Request $request, $req=false){
         return Validator::make($request->all(),[
-            'data' => $req ? 'required' : ''.'|date',
             'da_ora' => $req ? 'required' : ''.'|date_format:H:i',
             'ad_ora' => $req ? 'required' : ''.'|date_format:H:i',
             'posto' => $req ? 'required' : ''.'|integer|max:10',
@@ -44,6 +43,9 @@ class ReservationController extends Controller
             return Response::json($validator->messages(), 400);
         }
         $data = $validator->valid();
+        $data['data'] = date('Y-m-d', strtotime(' +1 day'));
+        $data['da_ora'] = date('h:i:s', strtotime($data['da_ora']));
+        $data['ad_ora'] = date('h:i:s', strtotime($data['ad_ora']));
 
         $reservation = Reservation::create($data);
 

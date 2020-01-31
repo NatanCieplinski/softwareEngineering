@@ -5,43 +5,45 @@
 				<div class="seat-container">
 					<div class="seat" v-for="seat in getSeats(desk)" :key="seat"
 						v-bind:style="{ width: 'calc(100%/'+desk.tipo_banco.numero_posti/2+')' }" 
-						v-on:click="reserveSeat(desk.id, seat.id)"
-					></div>
+					>
+						<div v-on:click="reserveSeat(desk.id, seat)"></div>
+					</div>
 				</div>
 			</div>
 			<div class="form-inline mt-5">
 				<div class="form-group">
 					<label class="ml-3">Da Ora: </label>
 					<select v-model="da_ora" class="form-control ml-3">
-						<option>08:00</option>
-						<option>09:00</option>
-						<option>10:00</option>
-						<option>11:00</option>
-						<option>12:00</option>
-						<option>13:00</option>
-						<option>14:00</option>
-						<option>15:00</option>
-						<option>16:00</option>
-						<option>17:00</option>
-						<option>18:00</option>
-						<option>19:00</option>
+						<option value="08:00:00">08:00</option>
+						<option value="09:00:00">09:00</option>
+						<option value="10:00:00">10:00</option>
+						<option value="11:00:00">11:00</option>
+						<option value="12:00:00">12:00</option>
+						<option value="13:00:00">13:00</option>
+						<option value="14:00:00">14:00</option>
+						<option value="15:00:00">15:00</option>
+						<option value="16:00:00">16:00</option>
+						<option value="17:00:00">17:00</option>
+						<option value="18:00:00">18:00</option>
+						<option value="19:00:00">19:00</option>
 					</select>
 				</div>
 				<div class="form-group">
 					<label class="ml-3">Ad Ora: </label>
 					<select v-model="ad_ora" class="form-control ml-3">
-						<option>08:00</option>
-						<option>09:00</option>
-						<option>10:00</option>
-						<option>11:00</option>
-						<option>12:00</option>
-						<option>13:00</option>
-						<option>14:00</option>
-						<option>15:00</option>
-						<option>16:00</option>
-						<option>17:00</option>
-						<option>18:00</option>
-						<option>19:00</option>
+						<option value="08:00:00">08:00</option>
+						<option value="09:00:00">09:00</option>
+						<option value="10:00:00">10:00</option>
+						<option value="11:00:00">11:00</option>
+						<option value="12:00:00">12:00</option>
+						<option value="13:00:00">13:00</option>
+						<option value="14:00:00">14:00</option>
+						<option value="15:00:00">15:00</option>
+						<option value="16:00:00">16:00</option>
+						<option value="17:00:00">17:00</option>
+						<option value="18:00:00">18:00</option>
+						<option value="19:00:00">19:00</option>
+						<option value="20:00:00">20:00</option>
 					</select>
 				</div>
 			</div>
@@ -69,16 +71,14 @@
 				return seats;
 			},
 			reserveSeat: function (desk_id, seat_id) {
-				if(this.da_ora > this.ad_ora){
-					console.log(desk_id);
-					console.log(seat_id);
-					/*this.$store.dispatch('reserveSeat', {
+				if(this.da_ora.localeCompare(this.ad_ora)<0){
+					this.$store.dispatch('reserveSeat', {
 						da_ora: this.da_ora,
 						ad_ora: this.ad_ora,
 						user_id: this.$store.getters.GET_USER.id,
 						desk_id: desk_id,
 						seat_id: seat_id,
-					});*/
+					});
 				}
 			},
 		},
@@ -114,5 +114,9 @@
 		height: calc(100%/2);
 		margin: 0px;
 		border: 1px solid blue;
+	}
+	.seat > div{
+		width: 100%;
+		height: 100%;
 	}
 </style>

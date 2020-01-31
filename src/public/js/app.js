@@ -2083,6 +2083,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2105,16 +2107,14 @@ __webpack_require__.r(__webpack_exports__);
       return seats;
     },
     reserveSeat: function reserveSeat(desk_id, seat_id) {
-      if (this.da_ora > this.ad_ora) {
-        console.log(desk_id);
-        console.log(seat_id);
-        /*this.$store.dispatch('reserveSeat', {
-        	da_ora: this.da_ora,
-        	ad_ora: this.ad_ora,
-        	user_id: this.$store.getters.GET_USER.id,
-        	desk_id: desk_id,
-        	seat_id: seat_id,
-        });*/
+      if (this.da_ora.localeCompare(this.ad_ora) < 0) {
+        this.$store.dispatch('reserveSeat', {
+          da_ora: this.da_ora,
+          ad_ora: this.ad_ora,
+          user_id: this.$store.getters.GET_USER.id,
+          desk_id: desk_id,
+          seat_id: seat_id
+        });
       }
     }
   },
@@ -6744,7 +6744,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".desk[data-v-bd74dc14] {\n  height: 80px;\n  padding: 0px 15px;\n  margin-top: 15px;\n}\n.seat-container[data-v-bd74dc14] {\n  border: 1px solid black;\n  width: 100%;\n  height: 100%;\n  display: -webkit-box;\n  display: flex;\n  flex-wrap: wrap;\n}\n.seat[data-v-bd74dc14] {\n  background: red;\n  height: calc(100%/2);\n  margin: 0px;\n  border: 1px solid blue;\n}", ""]);
+exports.push([module.i, ".desk[data-v-bd74dc14] {\n  height: 80px;\n  padding: 0px 15px;\n  margin-top: 15px;\n}\n.seat-container[data-v-bd74dc14] {\n  border: 1px solid black;\n  width: 100%;\n  height: 100%;\n  display: -webkit-box;\n  display: flex;\n  flex-wrap: wrap;\n}\n.seat[data-v-bd74dc14] {\n  background: red;\n  height: calc(100%/2);\n  margin: 0px;\n  border: 1px solid blue;\n}\n.seat > div[data-v-bd74dc14] {\n  width: 100%;\n  height: 100%;\n}", ""]);
 
 // exports
 
@@ -39347,18 +39347,26 @@ var render = function() {
               "div",
               { staticClass: "seat-container" },
               _vm._l(_vm.getSeats(desk), function(seat) {
-                return _c("div", {
-                  key: seat,
-                  staticClass: "seat",
-                  style: {
-                    width: "calc(100%/" + desk.tipo_banco.numero_posti / 2 + ")"
-                  },
-                  on: {
-                    click: function($event) {
-                      return _vm.reserveSeat(desk.id, seat.id)
+                return _c(
+                  "div",
+                  {
+                    key: seat,
+                    staticClass: "seat",
+                    style: {
+                      width:
+                        "calc(100%/" + desk.tipo_banco.numero_posti / 2 + ")"
                     }
-                  }
-                })
+                  },
+                  [
+                    _c("div", {
+                      on: {
+                        click: function($event) {
+                          return _vm.reserveSeat(desk.id, seat)
+                        }
+                      }
+                    })
+                  ]
+                )
               }),
               0
             )
@@ -39398,29 +39406,53 @@ var render = function() {
                 }
               },
               [
-                _c("option", [_vm._v("08:00")]),
+                _c("option", { attrs: { value: "08:00:00" } }, [
+                  _vm._v("08:00")
+                ]),
                 _vm._v(" "),
-                _c("option", [_vm._v("09:00")]),
+                _c("option", { attrs: { value: "09:00:00" } }, [
+                  _vm._v("09:00")
+                ]),
                 _vm._v(" "),
-                _c("option", [_vm._v("10:00")]),
+                _c("option", { attrs: { value: "10:00:00" } }, [
+                  _vm._v("10:00")
+                ]),
                 _vm._v(" "),
-                _c("option", [_vm._v("11:00")]),
+                _c("option", { attrs: { value: "11:00:00" } }, [
+                  _vm._v("11:00")
+                ]),
                 _vm._v(" "),
-                _c("option", [_vm._v("12:00")]),
+                _c("option", { attrs: { value: "12:00:00" } }, [
+                  _vm._v("12:00")
+                ]),
                 _vm._v(" "),
-                _c("option", [_vm._v("13:00")]),
+                _c("option", { attrs: { value: "13:00:00" } }, [
+                  _vm._v("13:00")
+                ]),
                 _vm._v(" "),
-                _c("option", [_vm._v("14:00")]),
+                _c("option", { attrs: { value: "14:00:00" } }, [
+                  _vm._v("14:00")
+                ]),
                 _vm._v(" "),
-                _c("option", [_vm._v("15:00")]),
+                _c("option", { attrs: { value: "15:00:00" } }, [
+                  _vm._v("15:00")
+                ]),
                 _vm._v(" "),
-                _c("option", [_vm._v("16:00")]),
+                _c("option", { attrs: { value: "16:00:00" } }, [
+                  _vm._v("16:00")
+                ]),
                 _vm._v(" "),
-                _c("option", [_vm._v("17:00")]),
+                _c("option", { attrs: { value: "17:00:00" } }, [
+                  _vm._v("17:00")
+                ]),
                 _vm._v(" "),
-                _c("option", [_vm._v("18:00")]),
+                _c("option", { attrs: { value: "18:00:00" } }, [
+                  _vm._v("18:00")
+                ]),
                 _vm._v(" "),
-                _c("option", [_vm._v("19:00")])
+                _c("option", { attrs: { value: "19:00:00" } }, [
+                  _vm._v("19:00")
+                ])
               ]
             )
           ]),
@@ -39457,29 +39489,57 @@ var render = function() {
                 }
               },
               [
-                _c("option", [_vm._v("08:00")]),
+                _c("option", { attrs: { value: "08:00:00" } }, [
+                  _vm._v("08:00")
+                ]),
                 _vm._v(" "),
-                _c("option", [_vm._v("09:00")]),
+                _c("option", { attrs: { value: "09:00:00" } }, [
+                  _vm._v("09:00")
+                ]),
                 _vm._v(" "),
-                _c("option", [_vm._v("10:00")]),
+                _c("option", { attrs: { value: "10:00:00" } }, [
+                  _vm._v("10:00")
+                ]),
                 _vm._v(" "),
-                _c("option", [_vm._v("11:00")]),
+                _c("option", { attrs: { value: "11:00:00" } }, [
+                  _vm._v("11:00")
+                ]),
                 _vm._v(" "),
-                _c("option", [_vm._v("12:00")]),
+                _c("option", { attrs: { value: "12:00:00" } }, [
+                  _vm._v("12:00")
+                ]),
                 _vm._v(" "),
-                _c("option", [_vm._v("13:00")]),
+                _c("option", { attrs: { value: "13:00:00" } }, [
+                  _vm._v("13:00")
+                ]),
                 _vm._v(" "),
-                _c("option", [_vm._v("14:00")]),
+                _c("option", { attrs: { value: "14:00:00" } }, [
+                  _vm._v("14:00")
+                ]),
                 _vm._v(" "),
-                _c("option", [_vm._v("15:00")]),
+                _c("option", { attrs: { value: "15:00:00" } }, [
+                  _vm._v("15:00")
+                ]),
                 _vm._v(" "),
-                _c("option", [_vm._v("16:00")]),
+                _c("option", { attrs: { value: "16:00:00" } }, [
+                  _vm._v("16:00")
+                ]),
                 _vm._v(" "),
-                _c("option", [_vm._v("17:00")]),
+                _c("option", { attrs: { value: "17:00:00" } }, [
+                  _vm._v("17:00")
+                ]),
                 _vm._v(" "),
-                _c("option", [_vm._v("18:00")]),
+                _c("option", { attrs: { value: "18:00:00" } }, [
+                  _vm._v("18:00")
+                ]),
                 _vm._v(" "),
-                _c("option", [_vm._v("19:00")])
+                _c("option", { attrs: { value: "19:00:00" } }, [
+                  _vm._v("19:00")
+                ]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "20:00:00" } }, [
+                  _vm._v("20:00")
+                ])
               ]
             )
           ])
@@ -56342,19 +56402,24 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js")["d
       var _reserveSeat = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2, data) {
-        var commit;
+        var commit, payload;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 commit = _ref2.commit;
-                axios.post('api/prenotazioni/new', {
+                payload = {
+                  da_ora: data.da_ora,
+                  ad_ora: data.ad_ora,
                   posto: data.seat_id,
                   user_id: data.user_id,
                   desk_id: data.desk_id
-                }).then(function (response) {});
+                };
+                axios.post('api/prenotazioni/new', payload).then(function (response) {
+                  console.log(response);
+                });
 
-              case 2:
+              case 3:
               case "end":
                 return _context2.stop();
             }

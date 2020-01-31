@@ -14,12 +14,16 @@ export default {
             });
         },
         async reserveSeat({commit}, data){
-            axios.post('api/prenotazioni/new', {
+            var payload = {
+                da_ora: data.da_ora,
+                ad_ora: data.ad_ora,
                 posto: data.seat_id,
                 user_id: data.user_id,
                 desk_id: data.desk_id,
-            }).then(function(response){
+            };
 
+            axios.post('api/prenotazioni/new', payload).then(function(response){
+                console.log(response);
             });
         },
     },
