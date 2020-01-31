@@ -20,7 +20,7 @@ class CreateReservationsTable extends Migration
             $table->time('ad_ora');
             $table->boolean('checked')->default(false);
             $table->integer('posto');
-            $table->time('start_pause')->nullable();
+            $table->time('inizio_pausa')->nullable();
 
             $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('desk_id')->unsigned();

@@ -43,6 +43,34 @@ class User extends Authenticatable
      */
     public function reservations()
     {
-        return $this->hasMany('App\Reservation');
+        return $this->hasMany('App\Reservation')->getResults();
+    }
+
+    /**
+     * Get schedules of the user
+     */
+    public function schedules()
+    {
+        return $this->hasMany('App\Schedule')->getResults();
+    }
+
+    /**
+     * Get reports of the user
+     */
+    public function reports()
+    {
+        return $this->hasMany('App\Report', 'user_id')->getResults();
+    }
+
+    /**
+     * Get user role
+     */
+    public function role(){
+        switch($this->tipo_utente){
+            case 1: return "professor";
+            case 2: return "supervisor";
+            case 3: return "admin";
+            default: return "student";
+        }
     }
 }
