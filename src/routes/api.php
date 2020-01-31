@@ -40,6 +40,7 @@ Route::group(['middleware' => ['auth:api']], function () {
 	Route::delete('banchi/{id}/', 'DeskController@destroy')->name('destroy');
 	
 	Route::get('banchi', 'DeskController@all')->name('all');
+	Route::get('banchi/aula/{id}', 'DeskController@byClassroom')->name('all');
 	Route::post('banchi/new', 'DeskController@create')->name('new');
 });
 

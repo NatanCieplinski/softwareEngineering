@@ -68,4 +68,12 @@ class Classroom extends Model
     {
         return $this->hasMany('App\Closing')->getResults();
     }
+
+    /**
+     * Get desks of the classroom
+     */
+    public function desks()
+    {
+        return $this->hasMany('App\Desk')->getResults();
+    }
 }

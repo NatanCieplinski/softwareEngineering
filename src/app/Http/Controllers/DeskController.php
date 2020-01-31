@@ -94,4 +94,17 @@ class DeskController extends Controller
 
         return Response::json($desk, 200);
     }
+
+    public function byClassroom(Request $request)
+    {
+        if( Auth::user()->role() != "supervisor" && 
+            Auth::user()->role() != "admin"
+        ){
+            return Response::make("", 403);
+        }
+
+        $classroom = Classroom::findOrFail($request['id']);
+
+        return Response::json($classroom->desks(), 200);
+    }
 }
