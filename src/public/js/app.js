@@ -2043,22 +2043,90 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return {};
+    return {
+      da_ora: '',
+      ad_ora: ''
+    };
   },
   methods: {
     getDesks: function getDesks(event) {
       this.$store.dispatch('getDesks');
+    },
+    getSeats: function getSeats(desk) {
+      var seats = new Array();
+
+      for (var i = 0; i < desk.tipo_banco.numero_posti; i++) {
+        seats[i] = i;
+      }
+
+      return seats;
+    },
+    reserveSeat: function reserveSeat(desk_id, seat_id) {
+      if (this.da_ora > this.ad_ora) {
+        console.log(desk_id);
+        console.log(seat_id);
+        /*this.$store.dispatch('reserveSeat', {
+        	da_ora: this.da_ora,
+        	ad_ora: this.ad_ora,
+        	user_id: this.$store.getters.GET_USER.id,
+        	desk_id: desk_id,
+        	seat_id: seat_id,
+        });*/
+      }
     }
   },
   computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['GET_DESKS']),
-  created: function created() {
+  beforeCreate: function beforeCreate() {
     this.$store.dispatch('requestToken', {
       email: "a@a.com",
       password: "password"
     });
+  },
+  created: function created() {
+    this.$store.dispatch('getDesks');
   }
 });
 
@@ -2087,24 +2155,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {};
   },
   methods: {
-    getReservations: function getReservations(event) {
-      this.$store.dispatch('getReservations');
+    getReservations: function getReservations(id) {
+      this.$store.dispatch('getReservations', id);
+    },
+    deleteReservation: function deleteReservation(id) {
+      this.$store.dispatch('deleteReservation', id);
     }
   },
   computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['GET_RESERVATIONS']),
-  created: function created() {
-    var obj = this;
+  beforeCreate: function beforeCreate() {
     this.$store.dispatch('requestToken', {
       email: "a@a.com",
       password: "password"
     });
+  },
+  created: function created() {
+    this.$store.dispatch('getReservations', this.$store.getters.GET_USER.id);
   }
 });
 
@@ -6672,7 +6744,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".desk[data-v-bd74dc14] {\n  height: 80px;\n  padding: 15px 0;\n  margin-top: 15px;\n}\n.desk div[data-v-bd74dc14] {\n  position: relative;\n  background: red;\n  width: 100%;\n  height: 100%;\n}", ""]);
+exports.push([module.i, ".desk[data-v-bd74dc14] {\n  height: 80px;\n  padding: 0px 15px;\n  margin-top: 15px;\n}\n.seat-container[data-v-bd74dc14] {\n  border: 1px solid black;\n  width: 100%;\n  height: 100%;\n  display: -webkit-box;\n  display: flex;\n  flex-wrap: wrap;\n}\n.seat[data-v-bd74dc14] {\n  background: red;\n  height: calc(100%/2);\n  margin: 0px;\n  border: 1px solid blue;\n}", ""]);
 
 // exports
 
@@ -6691,7 +6763,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "ul[data-v-0a0b7555] {\n  padding: 0;\n}\nli[data-v-0a0b7555] {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n          flex-direction: column;\n}\n.delete[data-v-0a0b7555] {\n  width: 20 px;\n  background-color: red;\n}", ""]);
+exports.push([module.i, "ul[data-v-0a0b7555] {\n  margin-top: 15px;\n  padding: 0;\n}\nli[data-v-0a0b7555] {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n          flex-direction: column;\n}", ""]);
 
 // exports
 
@@ -39268,15 +39340,153 @@ var render = function() {
     _c(
       "div",
       { staticClass: "row" },
-      _vm._l(_vm.GET_DESKS, function(desk) {
-        return _c("div", { key: desk.id, staticClass: "desk col-md-3" }, [
-          _c("div")
+      [
+        _vm._l(_vm.GET_DESKS, function(desk) {
+          return _c("div", { key: desk.id, staticClass: "desk col-md-3" }, [
+            _c(
+              "div",
+              { staticClass: "seat-container" },
+              _vm._l(_vm.getSeats(desk), function(seat) {
+                return _c("div", {
+                  key: seat,
+                  staticClass: "seat",
+                  style: {
+                    width: "calc(100%/" + desk.tipo_banco.numero_posti / 2 + ")"
+                  },
+                  on: {
+                    click: function($event) {
+                      return _vm.reserveSeat(desk.id, seat.id)
+                    }
+                  }
+                })
+              }),
+              0
+            )
+          ])
+        }),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-inline mt-5" }, [
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { staticClass: "ml-3" }, [_vm._v("Da Ora: ")]),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.da_ora,
+                    expression: "da_ora"
+                  }
+                ],
+                staticClass: "form-control ml-3",
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.da_ora = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  }
+                }
+              },
+              [
+                _c("option", [_vm._v("08:00")]),
+                _vm._v(" "),
+                _c("option", [_vm._v("09:00")]),
+                _vm._v(" "),
+                _c("option", [_vm._v("10:00")]),
+                _vm._v(" "),
+                _c("option", [_vm._v("11:00")]),
+                _vm._v(" "),
+                _c("option", [_vm._v("12:00")]),
+                _vm._v(" "),
+                _c("option", [_vm._v("13:00")]),
+                _vm._v(" "),
+                _c("option", [_vm._v("14:00")]),
+                _vm._v(" "),
+                _c("option", [_vm._v("15:00")]),
+                _vm._v(" "),
+                _c("option", [_vm._v("16:00")]),
+                _vm._v(" "),
+                _c("option", [_vm._v("17:00")]),
+                _vm._v(" "),
+                _c("option", [_vm._v("18:00")]),
+                _vm._v(" "),
+                _c("option", [_vm._v("19:00")])
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", { staticClass: "ml-3" }, [_vm._v("Ad Ora: ")]),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.ad_ora,
+                    expression: "ad_ora"
+                  }
+                ],
+                staticClass: "form-control ml-3",
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.ad_ora = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  }
+                }
+              },
+              [
+                _c("option", [_vm._v("08:00")]),
+                _vm._v(" "),
+                _c("option", [_vm._v("09:00")]),
+                _vm._v(" "),
+                _c("option", [_vm._v("10:00")]),
+                _vm._v(" "),
+                _c("option", [_vm._v("11:00")]),
+                _vm._v(" "),
+                _c("option", [_vm._v("12:00")]),
+                _vm._v(" "),
+                _c("option", [_vm._v("13:00")]),
+                _vm._v(" "),
+                _c("option", [_vm._v("14:00")]),
+                _vm._v(" "),
+                _c("option", [_vm._v("15:00")]),
+                _vm._v(" "),
+                _c("option", [_vm._v("16:00")]),
+                _vm._v(" "),
+                _c("option", [_vm._v("17:00")]),
+                _vm._v(" "),
+                _c("option", [_vm._v("18:00")]),
+                _vm._v(" "),
+                _c("option", [_vm._v("19:00")])
+              ]
+            )
+          ])
         ])
-      }),
-      0
-    ),
-    _vm._v(" "),
-    _c("button", { on: { click: _vm.getDesks } }, [_vm._v("getDesks")])
+      ],
+      2
+    )
   ])
 }
 var staticRenderFns = []
@@ -39322,16 +39532,19 @@ var render = function() {
                   _vm._s(reservation.posto) +
                   "\n                "
               ),
-              _c("button", { staticClass: "delete" })
+              _c("i", {
+                staticClass: "fas fa-trash",
+                on: {
+                  click: function($event) {
+                    return _vm.deleteReservation(reservation.id)
+                  }
+                }
+              })
             ]
           )
         }),
         0
       )
-    ]),
-    _vm._v(" "),
-    _c("button", { on: { click: _vm.getReservations } }, [
-      _vm._v("getReservations")
     ])
   ])
 }
@@ -56007,11 +56220,15 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js")["d
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: {
-    access_token: ""
+    access_token: "",
+    user: ''
   },
   mutations: {
     SET_TOKEN: function SET_TOKEN(state, token) {
       return state.access_token = token;
+    },
+    SET_USER: function SET_USER(state, user) {
+      return state.user = user;
     }
   },
   actions: {
@@ -56030,6 +56247,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js")["d
                   password: data.password
                 }).then(function (response) {
                   commit('SET_TOKEN', response.data.access_token);
+                  commit('SET_USER', response.data.user);
                   axios.defaults.headers.common = {
                     'Accept': 'application/json',
                     'Authorization': "Bearer ".concat(response.data.access_token)
@@ -56054,6 +56272,9 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js")["d
   getters: {
     GET_TOKEN: function GET_TOKEN(state) {
       return state.access_token;
+    },
+    GET_USER: function GET_USER(state) {
+      return state.user;
     }
   }
 });
@@ -56117,8 +56338,8 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js")["d
 
       return getDesks;
     }(),
-    getDesktypes: function () {
-      var _getDesktypes = _asyncToGenerator(
+    reserveSeat: function () {
+      var _reserveSeat = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2, data) {
         var commit;
@@ -56127,9 +56348,11 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js")["d
             switch (_context2.prev = _context2.next) {
               case 0:
                 commit = _ref2.commit;
-                axios.get('api/tipibanco/aula/1').then(function (response) {
-                  commit('SET_DESKS', response.data);
-                });
+                axios.post('api/prenotazioni/new', {
+                  posto: data.seat_id,
+                  user_id: data.user_id,
+                  desk_id: data.desk_id
+                }).then(function (response) {});
 
               case 2:
               case "end":
@@ -56139,11 +56362,11 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js")["d
         }, _callee2);
       }));
 
-      function getDesktypes(_x3, _x4) {
-        return _getDesktypes.apply(this, arguments);
+      function reserveSeat(_x3, _x4) {
+        return _reserveSeat.apply(this, arguments);
       }
 
-      return getDesktypes;
+      return reserveSeat;
     }()
   },
   getters: {
@@ -56187,14 +56410,14 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js")["d
     getReservations: function () {
       var _getReservations = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(_ref, data) {
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(_ref, id) {
         var commit;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 commit = _ref.commit;
-                axios.get('api/prenotazioni/utente/25').then(function (response) {
+                axios.get('api/prenotazioni/utente/' + id).then(function (response) {
                   commit('SET_RESERVATIONS', response.data);
                 });
 
@@ -56211,6 +56434,40 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js")["d
       }
 
       return getReservations;
+    }(),
+    deleteReservation: function () {
+      var _deleteReservation = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2, id) {
+        var commit, state;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                commit = _ref2.commit, state = _ref2.state;
+                axios["delete"]('api/prenotazioni/' + id).then(function (response) {
+                  var newReservations = state.reservations;
+
+                  for (var i = newReservations.length - 1; i--;) {
+                    if (newReservations[i].id == id) newReservations.splice(i, 1);
+                  }
+
+                  commit('SET_RESERVATIONS', newReservations);
+                });
+
+              case 2:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+
+      function deleteReservation(_x3, _x4) {
+        return _deleteReservation.apply(this, arguments);
+      }
+
+      return deleteReservation;
     }()
   },
   getters: {

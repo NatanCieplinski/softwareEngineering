@@ -1,14 +1,13 @@
 <template>
     <div>
-        <ul >
+        <ul>
             <li>
                 <div v-for="reservation in GET_RESERVATIONS" :key="reservation.id" class="list-group-item d-flex justify-content-between">
                     Prenotazione del {{ reservation.data }} ore: {{ reservation.da_ora }} posto:{{ reservation.posto }}
-                    <button class="delete"></button>
+                    <i class="fas fa-trash" v-on:click="deleteReservation(reservation.id)"></i>
                 </div>
             </li>
         </ul>
-        <button v-on:click="getReservations">getReservations</button>
     </div>
 </template>
 
@@ -20,31 +19,33 @@
             }
         },
         methods: {
-            getReservations: function (event) {
-                this.$store.dispatch('getReservations');
+            getReservations: function (id) {
+                this.$store.dispatch('getReservations', id);
+            },
+            deleteReservation: function (id) {
+                this.$store.dispatch('deleteReservation', id);
             },
         },
         computed: mapGetters(['GET_RESERVATIONS']),
-        created(){
-            var obj = this;
+        beforeCreate(){
             this.$store.dispatch('requestToken', {
                 email: "a@a.com",
                 password: "password"
             });
+        },
+        created(){
+            this.$store.dispatch('getReservations', this.$store.getters.GET_USER.id);
         }
     }
 </script>
 
 <style lang="scss" scoped>
     ul{
+        margin-top: 15px;
         padding: 0;
     }
     li{
          display: flex;
         flex-direction: column;
-    }
-    .delete{
-        width: 20 px;
-        background-color: red;
     }
 </style>

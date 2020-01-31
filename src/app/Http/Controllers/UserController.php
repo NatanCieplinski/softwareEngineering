@@ -167,6 +167,7 @@ class UserController extends Controller
         $access_token = Auth::user()->createToken('auth')->accessToken;
 
         return Response::json([
+            'user' => Auth::user(),
             'access_token' => $access_token
         ], 200);
     }
