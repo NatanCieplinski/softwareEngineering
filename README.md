@@ -19,19 +19,23 @@ https://documenter.getpostman.com/view/5342440/SWTD8x88?version=latest
 
 ### Video Prototipo
 
+Vengono mostrate di seguito le funzioni implementate nel prototipo.
+
 #### Login
 
-![](https://media.giphy.com/media/RMN1WsiIqauzYFzTQo/giphy.gif)
+![prova](https://media.giphy.com/media/J4CK3AkbdfPi0S4vHY/source.gif)
+
+
 
 #### Visualizzazione posti liberi per fasce orarie
 
-![](https://media.giphy.com/media/fscW05wVu1SSv8I1zV/giphy.gif)
+![](https://media.giphy.com/media/Xfy82LB9IPNaioSMJQ/source.gif)
 
 #### Prenotazione posto
 
-![](https://media.giphy.com/media/YneaO58CtiI4Y0aw9w/giphy.gif)
+![](https://media.giphy.com/media/XyJVElSxeruTcrUH2z/source.gif)
 
 #### Cancellazione prenotazione
 
-![](https://media.giphy.com/media/UWDCaTBDy123aleOOs/giphy.gif)
+![](https://media.giphy.com/media/ehJVt0QQ1KJ1s531hz/source.gif)
 
