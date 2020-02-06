@@ -1939,8 +1939,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      email: 'a@a.com',
-      password: 'password'
+      email: '',
+      password: ''
     };
   },
   methods: {
@@ -56302,8 +56302,8 @@ __webpack_require__.r(__webpack_exports__);
       return state.user = user;
     },
     AUTH_SUCCESS: function AUTH_SUCCESS(state, token, user) {
-      state.token = token;
-      state.user = user;
+      vue__WEBPACK_IMPORTED_MODULE_0___default.a.set(state, 'access_token', token);
+      vue__WEBPACK_IMPORTED_MODULE_0___default.a.set(state, 'user', user);
     }
   },
   actions: {
@@ -56366,7 +56366,8 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js")["d
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: {
     desks: [],
-    reserved: []
+    reserved: [],
+    classroom: 1
   },
   mutations: {
     SET_DESKS: function SET_DESKS(state, desks) {
@@ -56384,13 +56385,13 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js")["d
       var _getDesks = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(_ref, data) {
-        var commit, dispatch;
+        var commit, dispatch, getters;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                commit = _ref.commit, dispatch = _ref.dispatch;
-                axios.get('api/banchi/aula/1').then(function (response) {
+                commit = _ref.commit, dispatch = _ref.dispatch, getters = _ref.getters;
+                axios.get('api/banchi/aula/' + getters.GET_CLASSROOM).then(function (response) {
                   dispatch('initReserved', response.data);
                   commit('SET_DESKS', response.data);
                 });
@@ -56413,12 +56414,12 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js")["d
       var _reserveSeat = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2, data) {
-        var dispatch, payload;
+        var dispatch, getters, payload;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                dispatch = _ref2.dispatch;
+                dispatch = _ref2.dispatch, getters = _ref2.getters;
                 payload = {
                   da_ora: data.da_ora,
                   ad_ora: data.ad_ora,
@@ -56430,7 +56431,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js")["d
                   var requestData = {
                     da_ora: data.da_ora,
                     ad_ora: data.ad_ora,
-                    classroom_id: 1
+                    classroom_id: getters.GET_CLASSROOM
                   };
                   dispatch('checkAvailability', requestData);
                 });
@@ -56463,7 +56464,7 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js")["d
                   da_ora: data.da_ora,
                   ad_ora: data.ad_ora
                 };
-                axios.post('api/prenotazioni/aula/1', payload).then(function (response) {
+                axios.post('api/prenotazioni/aula/' + getters.GET_CLASSROOM, payload).then(function (response) {
                   var reserved = getters.GET_RESERVED;
                   var desks = getters.GET_DESKS;
                   desks.forEach(function (desk) {
@@ -56515,6 +56516,9 @@ var axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js")["d
     },
     GET_RESERVED: function GET_RESERVED(state) {
       return state.reserved;
+    },
+    GET_CLASSROOM: function GET_CLASSROOM(state) {
+      return state.classroom;
     }
   }
 });
@@ -56651,10 +56655,16 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   routes: [{
     path: '/',
-    component: _components_Prenota__WEBPACK_IMPORTED_MODULE_3__["default"]
+    component: _components_Prenota__WEBPACK_IMPORTED_MODULE_3__["default"],
+    meta: {
+      requiresAuth: true
+    }
   }, {
     path: '/prenotazioni',
-    component: _components_Prenotazioni__WEBPACK_IMPORTED_MODULE_5__["default"]
+    component: _components_Prenotazioni__WEBPACK_IMPORTED_MODULE_5__["default"],
+    meta: {
+      requiresAuth: true
+    }
   }, {
     path: '/login',
     component: _components_Login__WEBPACK_IMPORTED_MODULE_4__["default"]
@@ -56663,6 +56673,15 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     component: _components_PageNotFound__WEBPACK_IMPORTED_MODULE_6__["default"]
   }],
   mode: 'history'
+});
+router.beforeEach(function (to, from, next) {
+  if (to.matched.some(function (record) {
+    return record.meta.requiresAuth;
+  })) {
+    if (!_store_js__WEBPACK_IMPORTED_MODULE_2__["default"].getters["IS_LOGGED"]) next('/login');else next();
+  } else {
+    next();
+  }
 });
 /* harmony default export */ __webpack_exports__["default"] = (router);
 

@@ -17,8 +17,8 @@
     export default {
         data: function () { 
             return {
-                email: 'a@a.com',
-                password: 'password'
+                email: '',
+                password: ''
             }
         },
         methods: {

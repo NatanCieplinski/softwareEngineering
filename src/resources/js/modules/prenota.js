@@ -4,7 +4,8 @@ const axios = require('axios').default;
 export default {
 	state: {
 		desks: [],
-		reserved: []
+		reserved: [],
+		classroom: 1,
 	},
 	mutations: { 
 		SET_DESKS: (state, desks) => (state.desks = desks),
@@ -12,13 +13,13 @@ export default {
 		SET_SEAT: (state, data) => (Vue.set(state.reserved, data.index, data.array))
 	},
 	actions: {
-		async getDesks({commit, dispatch}, data){
-			axios.get('api/banchi/aula/1').then(function(response){
+		async getDesks({commit, dispatch, getters}, data){
+			axios.get('api/banchi/aula/'+getters.GET_CLASSROOM).then(function(response){
 				dispatch('initReserved', response.data);
 				commit('SET_DESKS', response.data);
 			});
 		},
-		async reserveSeat({ dispatch }, data){
+		async reserveSeat({ dispatch, getters }, data){
 			var payload = {
 				da_ora: data.da_ora,
 				ad_ora: data.ad_ora,
@@ -31,7 +32,7 @@ export default {
 				var requestData = {
 					da_ora: data.da_ora,
 					ad_ora: data.ad_ora,
-					classroom_id: 1,
+					classroom_id: getters.GET_CLASSROOM,
 				}
 				dispatch('checkAvailability', requestData);
 			});
@@ -42,7 +43,7 @@ export default {
 				ad_ora: data.ad_ora,
 			};
 
-			axios.post('api/prenotazioni/aula/1', payload).then(function(response){
+			axios.post('api/prenotazioni/aula/'+getters.GET_CLASSROOM, payload).then(function(response){
 				var reserved = getters.GET_RESERVED;
 				var desks = getters.GET_DESKS;
 
@@ -76,6 +77,7 @@ export default {
 	},
 	getters: { 
 		GET_DESKS: (state) => state.desks,
-		GET_RESERVED: (state) => state.reserved
+		GET_RESERVED: (state) => state.reserved,
+		GET_CLASSROOM: (state) => state.classroom
 	}
 }

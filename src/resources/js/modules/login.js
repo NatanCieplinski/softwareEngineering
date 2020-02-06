@@ -9,8 +9,8 @@ export default {
     mutations: { 
         SET_USER: (state, user) => (state.user = user),
         AUTH_SUCCESS(state, token, user){
-            state.token = token
-            state.user = user
+            Vue.set(state, 'access_token',token)
+            Vue.set(state, 'user', user)
         },
     },
     actions: {
