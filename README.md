@@ -16,9 +16,11 @@ The software must allow, among other things, to:
 - record the identity of those inside the classroom;
 - prevent users from blocking study / work stations when not present;
 - have a geo-localized view of the available classrooms;
+
 Where possible, the software should minimize data entry by integrating with
 existing applications. The application must be independent of a specification
 University.
+
 The application must be able to manage various rooms in various buildings within one
 cities (up to 1000 rooms in 100 different buildings), with flows also equal to
 hundreds of users per room. The application must not in any way
